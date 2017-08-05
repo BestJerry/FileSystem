@@ -1,21 +1,17 @@
 package Start;
 
-import com.sun.javafx.font.freetype.HBGlyphLayout;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        BorderPane root = FXMLLoader.load(getClass().getResource("../View/Main.fxml"));
+        BorderPane root = FXMLLoader.load(getClass().getResource("../View/MainView.fxml"));
         primaryStage.setTitle("模拟磁盘文件系统");
         primaryStage.setScene(new Scene(root, 1024, 640));
         primaryStage.setResizable(false);
