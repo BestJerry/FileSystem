@@ -4,9 +4,9 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LeftViewCtr">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LeftViewCtr">
    <children>
-      <TreeView fx:id="file_structure" editable="true">
+      <TreeView fx:id="file_structure" editable="true" prefHeight="560.0">
          <VBox.margin>
             <Insets />
          </VBox.margin></TreeView>

@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         BorderPane root = FXMLLoader.load(getClass().getResource("../View/MainView.fxml"));
-        primaryStage.setTitle("模拟磁盘文件系统");
+        primaryStage.setTitle("FileSystem");
         primaryStage.setScene(new Scene(root, 1024, 640));
         primaryStage.setResizable(false);
 
