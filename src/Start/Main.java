@@ -3,15 +3,23 @@ package Start;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import lhw.Test.ModDialog;
+import lhw.left.FileIO;
+import lhw.left.Folder;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         BorderPane root = FXMLLoader.load(getClass().getResource("../View/MainView.fxml"));
+
         primaryStage.setTitle("FileSystem");
         primaryStage.setScene(new Scene(root, 1024, 640));
         primaryStage.setResizable(false);
@@ -24,6 +32,7 @@ public class Main extends Application {
         root.setLeft(leftView);
         root.setCenter(centerView);
         root.setRight(rightView);
+
         primaryStage.show();
     }
 

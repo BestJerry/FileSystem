@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.FlowPane?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:id="scrollPane" fx:controller="Controller.CenterViewCtr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <TilePane alignment="CENTER" prefHeight="560.0" prefWidth="480.0" />
+      <FlowPane fx:id="flowpane" prefHeight="560.0" prefWidth="500.0" />
    </content>
 </ScrollPane>

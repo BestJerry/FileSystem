@@ -9,8 +9,8 @@
    <children>
       <TableView fx:id="fat_table" prefHeight="560.0">
         <columns>
-          <TableColumn fx:id="disk" prefWidth="75.0" text="磁盘块" editable="false" />
-          <TableColumn fx:id="value" prefWidth="75.0" text="值" editable="false"/>
+          <TableColumn fx:id="disk" editable="false" prefWidth="75.0" text="磁盘块" />
+          <TableColumn fx:id="value" editable="false" prefWidth="75.0" text="值" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
