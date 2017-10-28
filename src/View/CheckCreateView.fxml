@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="Controller.CreateFileFolderCtr" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="480.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="480.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckCreateCtr">
    <children>
-      <Label text="请输入您要新建的文件夹或文件名称">
+      <Label fx:id="label" text="请输入您要新建的文件夹或文件名称">
          <font>
             <Font size="18.0" />
          </font></Label>
@@ -24,7 +24,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Button fx:id="check_button" contentDisplay="CENTER" mnemonicParsing="false" text="确定">
+      <Button fx:id="commit_button" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#commitCreate" text="确定">
          <font>
             <Font size="14.0" />
          </font>

@@ -61,7 +61,7 @@ public class FileNode extends BorderPane {
         this.setMaxWidth(Constant.WIDTHUNIT);
         this.setPrefHeight(Constant.HEIGHTUNIT);
         addListener();
-        addMenuItem(this);
+        //addMenuItem(this);
     }
 
 
@@ -89,10 +89,10 @@ public class FileNode extends BorderPane {
     void addMenuItem(Node node) {
         cm = new ContextMenu();
 
-        MenuItem property = new MenuItem(new String("属性"));
-        MenuItem delete = new MenuItem("删除");
-        MenuItem rename = new MenuItem("重命名");
-        MenuItem open = new MenuItem("打开");
+        MenuItem property = new MenuItem(new String("锟斤拷锟斤拷"));
+        MenuItem delete = new MenuItem("删锟斤拷");
+        MenuItem rename = new MenuItem("锟斤拷锟斤拷锟斤拷");
+        MenuItem open = new MenuItem("锟斤拷");
         open.setOnAction((ActionEvent e) -> {
             if (this.file instanceof Folder) {
                 CenterViewCtr.folder = (Folder) this.file;
@@ -106,10 +106,8 @@ public class FileNode extends BorderPane {
                 BorderPane root = (BorderPane) stage.getScene().getRoot();
                 root.setCenter(centerView);
             } else {
-                ((TextFile)this.file).open();//打开文本之前的必要操作
-                /*
-					打开文本文件的界面操作=_=
-				 */
+                ((TextFile)this.file).open();//锟斤拷锟侥憋拷之前锟侥憋拷要锟斤拷锟斤拷
+
             }
         });
 
@@ -127,7 +125,7 @@ public class FileNode extends BorderPane {
 
             Label label = (Label) (iNode.getBottom());
             TextField tf = new TextField(label.getText());
-            CenterViewCtr.textField = tf;
+            //CenterViewCtr.textField = tf;
             tf.setEditable(true);
             iNode.setBottom(tf);
             tf.setOnAction((ActionEvent event) -> {
@@ -138,7 +136,7 @@ public class FileNode extends BorderPane {
                 boolean changeName = true;
                 if (this.file.getName().equals(name)) changeName = false;
                 this.file.setName(name);
-                CenterViewCtr.textField = null;
+                //CenterViewCtr.textField = null;
                 if (changeName) {
                     try {
                         updateUI();
@@ -151,7 +149,7 @@ public class FileNode extends BorderPane {
         });
         property.setOnAction(e -> {
 			/*
-				显示属性的代码=_=
+				锟斤拷示锟斤拷锟皆的达拷锟斤拷=_=
 			 */
         });
         cm.getItems().add(open);
@@ -188,7 +186,7 @@ public class FileNode extends BorderPane {
             if (!selected.get())
                 this.setStyle("-fx-background-color:transparent;");
         });
-        this.addEventHandler(MouseEvent.MOUSE_CLICKED, new TestEventHandler(this));
+        //this.addEventHandler(MouseEvent.MOUSE_CLICKED, new TestEventHandler(this));
 
     }
 
@@ -207,13 +205,13 @@ public class FileNode extends BorderPane {
 
     public boolean rightName(String name) {
         if (!Attribute.is_correctName(name)) {
-            new ModDialog().messageDialog("名字不合法");
+            new ModDialog().messageDialog("锟斤拷锟街诧拷锟较凤拷");
             return false;
         }
         for (Attribute f : faFile.listFolder()) {
             if (f != this.file && f.getName().equals(name) == true
                     && f.getClass() == this.file.getClass()) {
-                new ModDialog().messageDialog("名字与其他文件重复");
+                new ModDialog().messageDialog("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟侥硷拷锟截革拷");
                 return false;
             }
         }

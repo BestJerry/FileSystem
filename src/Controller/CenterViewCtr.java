@@ -1,14 +1,10 @@
 package Controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
-import com.sun.javafx.scene.control.skin.LabeledText;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -16,10 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import lhw.Test.*;
-import lhw.left.Attribute;
 import lhw.left.Folder;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,18 +29,20 @@ public class CenterViewCtr implements Initializable {
     private ScrollPane scrollPane;
 
     @FXML
-    private FlowPane flowpane = new FlowPane();
+    private FlowPane flowpane;
+
+    private ContextMenu contextMenu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (folder == null) return;
+        /*if (folder == null) return;
         allFile = folder.listFolder();
         init();
         loadAllNode();
-        scrollPane.setContent(flowpane);
+        scrollPane.setContent(flowpane);*/
     }
 
-    private double FPWIDTH = Constant.FPWIDTH = 500, FPHEIGHT = Constant.FPHEIGHT = 560;
+    /*private double FPWIDTH = Constant.FPWIDTH = 500, FPHEIGHT = Constant.FPHEIGHT = 560;
     private static double row = 6, col = 6;
     private double WIDTHUNIT = Constant.WIDTHUNIT = FPWIDTH / col, HEIGHTUNIT = Constant.HEIGHTUNIT = FPHEIGHT / row;
 
@@ -138,7 +133,7 @@ public class CenterViewCtr implements Initializable {
         for (Attribute node : allFile) {
             flowpane.getChildren().add(new FileNode(node, flowpane, folder));
         }
-    }
+    }*/
 
     public void updateUI() throws IOException {
         HBox topmenu = FXMLLoader.load(getClass().getResource("/View/TopMenu.fxml"));
@@ -149,6 +144,33 @@ public class CenterViewCtr implements Initializable {
         root.setTop(topmenu);
         root.setLeft(leftView);
         root.setRight(rightView);
+    }
+
+    public void showMenu(MouseEvent mouseEvent) throws IOException {
+
+        if (mouseEvent.getButton() == MouseButton.PRIMARY){
+            if (contextMenu!=null&&contextMenu.isShowing()){
+                contextMenu.hide();
+            }
+            return;
+        }
+
+        if(mouseEvent.getButton()== MouseButton.SECONDARY){
+            if(contextMenu!=null&&contextMenu.isShowing()) {
+                contextMenu.hide();
+
+            }
+            else{
+                URL location = getClass().getResource("/View/ContextMenuView.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(location);
+                fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+                contextMenu = fxmlLoader.load(location.openStream());
+                CenterContextMenuCtr centerContextMenuCtr = fxmlLoader.getController();
+                contextMenu.show(flowpane, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+            }
+            return;
+        }
     }
 }
 

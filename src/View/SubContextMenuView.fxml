@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+
+<ContextMenu fx:controller="Controller.SubContextMenuCtr" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <MenuItem mnemonicParsing="false" text="打开" />
+      <MenuItem mnemonicParsing="false" text="属性" />
+      <MenuItem mnemonicParsing="false" text="删除" />
+      <MenuItem mnemonicParsing="false" text="重命名" />
+  </items>
+</ContextMenu>

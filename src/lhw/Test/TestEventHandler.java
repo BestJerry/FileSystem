@@ -1,4 +1,4 @@
-package lhw.Test;
+/*package lhw.Test;
 
 import Controller.CenterViewCtr;
 import com.sun.javafx.robot.impl.FXRobotHelper;
@@ -44,13 +44,11 @@ public class TestEventHandler implements EventHandler<MouseEvent> {
                         BorderPane root = (BorderPane) stage.getScene().getRoot();
                         root.setCenter(centerView);
                     }else {
-                        /*
-                            打开文本文件的操作
-                         */
+
                     }
                 }
             }
         }
     }
 
-}
+}*/
