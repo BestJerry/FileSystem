@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SubFileOrFolderCtr">
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showMenu" onMouseEntered="#selectModel" onMouseExited="#unSelectModel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SubFileOrFolderCtr">
    <children>
-      <ImageView fx:id="picture" fitHeight="84.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageview_picture" fitHeight="84.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
          <VBox.margin>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
          </VBox.margin></ImageView>
-      <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" text="Label">
+      <Label fx:id="label_name" alignment="CENTER" contentDisplay="CENTER" text="Label">
          <font>
             <Font size="14.0" />
          </font>

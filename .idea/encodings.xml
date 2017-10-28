@@ -4,8 +4,10 @@
     <file url="file://$PROJECT_DIR$/src/Controller/CenterContextMenuCtr.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/Controller/CenterViewCtr.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/Controller/CheckCreateCtr.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/src/Controller/LeftViewCtr.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Controller/LeftViewCtr.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/Controller/SubContextMenuCtr.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/Start/Main.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/lhw/Test/ModDialog.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/lhw/left/Attribute.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/lhw/left/FAT.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/lhw/left/FileIO.java" charset="GBK" />

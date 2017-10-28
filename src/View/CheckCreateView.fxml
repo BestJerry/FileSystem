@@ -9,7 +9,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="480.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckCreateCtr">
    <children>
-      <Label fx:id="label" text="请输入您要新建的文件夹或文件名称">
+      <Label fx:id="title_label" text="请输入您要新建的文件夹或文件名称">
          <font>
             <Font size="18.0" />
          </font></Label>

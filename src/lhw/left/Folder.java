@@ -1,8 +1,9 @@
 package lhw.left;
 
-import lhw.Test.ModDialog;
+import Interface.addCallback;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class Folder extends Attribute {
@@ -33,45 +34,53 @@ public class Folder extends Attribute {
     /**
      * 添加文件，子文件不能超过8个
      *
-     * @param name      文件名，不能有'$' ， '.' ， '/'
-     * @param is_folder true则建立文件夹，false则建立文件
+     * @param name        文件名，不能有'$' ， '.' ， '/'
+     * @param is_folder   true则建立文件夹，false则建立文件
+     * @param addCallback
      * @return false 则(name不合法或子文件超过8个或磁盘已满)
      */
-    public Attribute add(String name, boolean is_folder) {
-        if (linkedList.size() == 8) {
-            new ModDialog().messageDialog("文件夹已满！");
-            return null;
-        }
-        if (is_correctName(name) == false) {
-            new ModDialog().messageDialog("错误的文件名！");
-            return null;
-        }
-
-        Attribute tmp;
-        if (is_folder)
-            tmp = new Folder(this.path + File.separator + name);
-        else
-            tmp = new TextFile(this.path + File.separator + name);
-        for (Attribute attribute : this.listFolder()) {
-
-
-            if (attribute.getName().equals(name) == true
-                    && attribute.getClass() == tmp.getClass()) {
-                new ModDialog().messageDialog("名字与其他文件重复");
-                return null;
-            }
-
-        }
+    public void add(String name, boolean is_folder, addCallback addCallback) throws IOException {
+        String message = "";
+        Attribute temp;
+        boolean flag = true;
         int startDiskNum = FAT.assignDisk();
-        if (startDiskNum == -1) {
-            new ModDialog().messageDialog("空闲磁盘不足！");
-            return null;
+        if (is_folder) {
+            temp = new Folder(this.path + File.separator + name);
+        } else {
+            temp = new TextFile(this.path + File.separator + name);
         }
-        tmp.startDisk = startDiskNum;
-        linkedList.add(tmp);
-        tmp.faNode = this;
-        tmp.updateSize();
-        return tmp;
+
+        System.out.println(temp + " " + is_correctName(name));
+        if (startDiskNum == -1) {
+            //new ModDialog().messageDialog("空闲磁盘不足！");
+            message = "空闲磁盘不足！";
+
+        } else if (linkedList.size() == 8) {
+            //new ModDialog().messageDialog("文件夹已满！");
+            message = "文件夹已满！";
+
+        } else if (is_correctName(name) == false) {
+            //new ModDialog().messageDialog("错误的文件名！");
+            message = "错误的文件名！";
+        } else {
+
+            for (Attribute attribute : this.listFolder()) {
+                if (attribute.getName().equals(name) == true && attribute.getClass() == temp.getClass()) {
+                    //new ModDialog().messageDialog("名字与其他文件重复");
+                    message = "名字与其他文件重复！";
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                temp.startDisk = startDiskNum;
+                linkedList.add(temp);
+                temp.faNode = this;
+                temp.updateSize();
+                message = "创建成功！";
+            }
+        }
+        addCallback.getResult(message, temp);
     }
 
     protected boolean add(Attribute node) {
@@ -98,15 +107,17 @@ public class Folder extends Attribute {
         }
         return false;
     }
-    private void recycleAll(Attribute file){
+
+    private void recycleAll(Attribute file) {
         FAT.recycleDisk(file.startDisk);
-        if(file instanceof  Folder){
-            Folder folder = (Folder)file;
-            for(Attribute son:folder.listFolder()){
+        if (file instanceof Folder) {
+            Folder folder = (Folder) file;
+            for (Attribute son : folder.listFolder()) {
                 recycleAll(son);
             }
         }
     }
+
     @Override
     public type get_type() {
         // TODO Auto-generated method stub

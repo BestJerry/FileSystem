@@ -2,7 +2,6 @@ package lhw.Test;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,7 +16,7 @@ import lhw.left.Folder;
 
 import java.io.IOException;
 
-public class ModDialog {// 窗口
+public class ModDialog {// ????
 	final Stage stage = new Stage();
 	ModDialog modDialog;
 	TextField name = new TextField();
@@ -29,7 +28,7 @@ public class ModDialog {// 窗口
 		Button btn = new Button();
 		Label lb = new Label(str);
 
-		stage.initModality(Modality.APPLICATION_MODAL);// 模态
+		stage.initModality(Modality.APPLICATION_MODAL);// ??
 		stage.setTitle("error");
 		Group root = new Group();
 		Scene scene = new Scene(root, 250, 80);
@@ -49,11 +48,11 @@ public class ModDialog {// 窗口
 		stage.show();
 	}
 
-	public void  newFolderOrFile(Folder folder,boolean is_folder,FlowPane pane) {
+	/*public void  newFolderOrFile(Folder folder,boolean is_folder,FlowPane pane) {
 		Button btn = new Button();
 		HBox rt = new HBox();
 
-		stage.initModality(Modality.APPLICATION_MODAL);// 模态
+		stage.initModality(Modality.APPLICATION_MODAL);// ??
 		stage.setTitle("input");
 		Group root = new Group();
 		Scene scene = new Scene(root, 300, 80);
@@ -61,7 +60,7 @@ public class ModDialog {// 窗口
 		btn.setOnAction((ActionEvent e)->{
 			stage.hide();
 
-			Attribute attribute = folder.add(name.getText(),is_folder);
+			Attribute attribute = folder.add(name.getText(),is_folder, attribute);
 			if(attribute!= null) {
 				pane.getChildren().add(new FileNode(attribute, pane, folder));
 				try {
@@ -72,23 +71,23 @@ public class ModDialog {// 窗口
 			}
 			/*for(Attribute x:folder.listFolder()){
 				Folder.print(x);
-			}*/
+			}
 		});
 
-		rt.getChildren().addAll(new Label("名字："),name);
+		rt.getChildren().addAll(new Label("?????"),name);
 		rt.setSpacing(10);
 		rt.setLayoutX(30);
 		rt.setLayoutY(15);
 		btn.setLayoutX(150);
 		btn.setLayoutY(60);
-		btn.setText("确定");
+		btn.setText("???");
 		root.getChildren().add(rt);
 		root.getChildren().add(btn);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.show();
 
-	}
+	}*/
 	public  void updateUI() throws IOException {
 		HBox topmenu = FXMLLoader.load(getClass().getResource("/View/TopMenu.fxml"));
 		VBox leftView = FXMLLoader.load(getClass().getResource("/View/LeftView.fxml"));

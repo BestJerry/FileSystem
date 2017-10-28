@@ -3,9 +3,12 @@ package Controller;
 
 import Utility.ReadAndWrite;
 import com.sun.javafx.robot.impl.FXRobotHelper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeCell;
@@ -57,7 +60,7 @@ public class LeftViewCtr implements Initializable{
             e.printStackTrace();
         }
 
-        /*file_structure.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Attribute>>() {
+        file_structure.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Attribute>>() {
             @Override
             public void changed(ObservableValue<? extends TreeItem<Attribute>> observable, TreeItem<Attribute> oldValue, TreeItem<Attribute> newValue) {
                 TreeItem<Attribute> selectItem = newValue;
@@ -70,27 +73,14 @@ public class LeftViewCtr implements Initializable{
 
                 }
             }
-        });*/
-        file_structure.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)->{
-            handleMouseClicked(e);//单击就更新，即使选定的无变化，上面的监听器不行
         });
     }
 
-    private void handleMouseClicked(MouseEvent event) {
-        Node node = event.getPickResult().getIntersectedNode();
-        // Accept clicks only on node cells, and not on empty spaces of the TreeView
-        if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-            Attribute click = (Attribute)((TreeItem)file_structure.getSelectionModel().getSelectedItem()).getValue();
-            if(click instanceof  Folder)
-                try {
-                    updateCenterView((Folder)click);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        }
-
-    }
-
+    /**
+     * 遍历文件夹，获取treeview结点
+     * @param rootItem
+     * @param root
+     */
     public void traverseFolder(TreeItem rootItem, Folder root) {
             for (Attribute son : root.listFolder()) {
                 if (son instanceof Folder) {
@@ -106,12 +96,19 @@ public class LeftViewCtr implements Initializable{
     }
 
     private void updateCenterView(Folder folder) throws IOException {
-        if(folder == CenterViewCtr.folder) return ;
-        CenterViewCtr.folder  = folder;
-        ScrollPane centerView = FXMLLoader.load(getClass().getResource("/View/CenterView.fxml"));
+
+        URL location = getClass().getResource("/View/CenterView.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        ScrollPane scrollPane  = fxmlLoader.load(location.openStream());
+        CenterViewCtr centerViewCtr = fxmlLoader.getController();
+        centerViewCtr.setFolder(folder);
+        //centerViewCtr.setFolder(folder);
+        centerViewCtr.init();
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setCenter(centerView);
+        root.setCenter(scrollPane);
     }
 
 }

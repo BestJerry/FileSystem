@@ -3,11 +3,11 @@
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
 
-<ContextMenu fx:controller="Controller.SubContextMenuCtr" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<ContextMenu xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SubContextMenuCtr">
   <items>
-    <MenuItem mnemonicParsing="false" text="打开" />
-      <MenuItem mnemonicParsing="false" text="属性" />
-      <MenuItem mnemonicParsing="false" text="删除" />
-      <MenuItem mnemonicParsing="false" text="重命名" />
+    <MenuItem fx:id="openItem" mnemonicParsing="false" onAction="#open" text="打开" />
+      <MenuItem fx:id="showAttributeItem" mnemonicParsing="false" onAction="#showAttribute" text="属性" />
+      <MenuItem fx:id="deleteItem" mnemonicParsing="false" onAction="#delete" text="删除" />
+      <MenuItem fx:id="renameItem" mnemonicParsing="false" onAction="#rename" text="重命名" />
   </items>
 </ContextMenu>

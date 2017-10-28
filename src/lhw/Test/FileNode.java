@@ -95,7 +95,7 @@ public class FileNode extends BorderPane {
         MenuItem open = new MenuItem("��");
         open.setOnAction((ActionEvent e) -> {
             if (this.file instanceof Folder) {
-                CenterViewCtr.folder = (Folder) this.file;
+               // CenterViewCtr.folder = (Folder) this.file;
                 ScrollPane centerView = null;
                 try {
                     centerView = FXMLLoader.load(getClass().getResource("/View/CenterView.fxml"));

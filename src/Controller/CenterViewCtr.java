@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -13,46 +14,107 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lhw.left.Attribute;
 import lhw.left.Folder;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 /**
  * Created by jerry on 17-8-4.
  */
 public class CenterViewCtr implements Initializable {
-    public static Folder folder;
+
+
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane scrollpane;
 
     @FXML
     private FlowPane flowpane;
 
     private ContextMenu contextMenu;
 
+    private LinkedList<Attribute> files = new LinkedList<>();
+
+    //当前所在文件夹folder
+    public static Folder folder;
+
+    public static void setFolder(Folder folder) {
+        CenterViewCtr.folder = folder;
+    }
+
+    /*private double FPWIDTH = Constant.FPWIDTH = 500, FPHEIGHT = Constant.FPHEIGHT = 560;
+   private static double row = 6, col = 6;
+   private double WIDTHUNIT = Constant.WIDTHUNIT = FPWIDTH / col, HEIGHTUNIT = Constant.HEIGHTUNIT = FPHEIGHT / row;
+
+   private double paneWidth = FPWIDTH, paneHeight = FPHEIGHT;
+   private LinkedList<Attribute> allFile = new LinkedList<>();//folder.listFolder,emmmm
+
+   public static TextField textField;*/
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         /*if (folder == null) return;
         allFile = folder.listFolder();
         init();
-        loadAllNode();
-        scrollPane.setContent(flowpane);*/
+        addNode();
+        scrollpane.setContent(flowpane);*/
+
     }
 
-    /*private double FPWIDTH = Constant.FPWIDTH = 500, FPHEIGHT = Constant.FPHEIGHT = 560;
-    private static double row = 6, col = 6;
-    private double WIDTHUNIT = Constant.WIDTHUNIT = FPWIDTH / col, HEIGHTUNIT = Constant.HEIGHTUNIT = FPHEIGHT / row;
+    public void init(){
+        try {
+            addNode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void addNode() throws IOException {
+        if (folder == null) {
+            return;
+        }
+        files = folder.listFolder();
 
-    private double paneWidth = FPWIDTH, paneHeight = FPHEIGHT;
-    private LinkedList<Attribute> allFile = new LinkedList<>();//folder.listFolder,emmmm
+        for (Attribute son : files) {
+            if (son instanceof Folder) {
+                URL location = getClass().getResource("/View/SubFileOrFolderView.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(location);
+                fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+                Node node = fxmlLoader.load(location.openStream());
+                SubFileOrFolderCtr subFileOrFolderCtr = fxmlLoader.getController();
+                subFileOrFolderCtr.setImageview_picture(1);
+                subFileOrFolderCtr.setLabel_name(son.getName());
+                subFileOrFolderCtr.setAttribute(son);
+                subFileOrFolderCtr.setFolder(folder);
+                subFileOrFolderCtr.setFlowPane(flowpane);
+                subFileOrFolderCtr.setNode(node);
+                flowpane.getChildren().add(node);
+            } else {
+                URL location = getClass().getResource("/View/SubFileOrFolderView.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(location);
+                fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+                Node node = fxmlLoader.load(location.openStream());
+                SubFileOrFolderCtr subFileOrFolderCtr = fxmlLoader.getController();
+                subFileOrFolderCtr.setImageview_picture(2);
+                subFileOrFolderCtr.setLabel_name(son.getName());
+                subFileOrFolderCtr.setAttribute(son);
+                subFileOrFolderCtr.setFolder(folder);
+                subFileOrFolderCtr.setFlowPane(flowpane);
+                subFileOrFolderCtr.setNode(node);
+                flowpane.getChildren().add(node);
+            }
 
-    public static TextField textField;
+        }
 
+    }
 
-    private void init() {
+    /*private void init() {
 
         flowpane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         flowpane.setHgap(10);
@@ -89,7 +151,7 @@ public class CenterViewCtr implements Initializable {
                     iNode.setMargin(label, new Insets(0, Constant.WIDTHUNIT / 6.0, 0, Constant.WIDTHUNIT / 6.0));
                     boolean changeName = true;
                     if (iNode.file.equals(name)) changeName = false;
-                    iNode.file.setName(name);
+                    iNode.file.setLabel_name(name);
                     if (changeName) {
                         try {
                             updateUI();
@@ -129,7 +191,7 @@ public class CenterViewCtr implements Initializable {
 
     }
 
-    private void loadAllNode() {
+    private void addNode() {
         for (Attribute node : allFile) {
             flowpane.getChildren().add(new FileNode(node, flowpane, folder));
         }
@@ -146,32 +208,38 @@ public class CenterViewCtr implements Initializable {
         root.setRight(rightView);
     }
 
+    /**
+     * 打开右键菜单
+     * @param mouseEvent
+     * @throws IOException
+     */
     public void showMenu(MouseEvent mouseEvent) throws IOException {
 
-        if (mouseEvent.getButton() == MouseButton.PRIMARY){
-            if (contextMenu!=null&&contextMenu.isShowing()){
+        if (mouseEvent.getPickResult().getIntersectedNode() != flowpane) {
+            if (contextMenu != null && contextMenu.isShowing()){
                 contextMenu.hide();
             }
             return;
         }
+        if (contextMenu != null && contextMenu.isShowing()) {
+            contextMenu.hide();
 
-        if(mouseEvent.getButton()== MouseButton.SECONDARY){
-            if(contextMenu!=null&&contextMenu.isShowing()) {
-                contextMenu.hide();
+        } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
 
-            }
-            else{
-                URL location = getClass().getResource("/View/ContextMenuView.fxml");
+                URL location = getClass().getResource("/View/CenterContextMenuView.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(location);
                 fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
                 contextMenu = fxmlLoader.load(location.openStream());
                 CenterContextMenuCtr centerContextMenuCtr = fxmlLoader.getController();
+                centerContextMenuCtr.setFlowPane(flowpane);
+                centerContextMenuCtr.setFolder(folder);
                 contextMenu.show(flowpane, mouseEvent.getScreenX(), mouseEvent.getScreenY());
-            }
+
             return;
         }
     }
+
 }
 
 

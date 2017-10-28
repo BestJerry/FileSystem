@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import lhw.left.Attribute;
 
 import java.awt.*;
 import java.io.IOException;
@@ -15,39 +16,44 @@ import java.util.ResourceBundle;
 
 public class FileAttributeCtr implements Initializable{
     @FXML
-    private Label filename;
+    private Label filename_label;
 
     @FXML
-    private Label size;
+    private Label size_label;
 
     @FXML
-    private Label position;
+    private Label position_label;
 
     @FXML
-    private Label attribute;
+    private Label attribute_label;
+
+    private Attribute attribute;
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
+    private void setFilename_label(){
+        filename_label.setText(attribute.getName());
+    }
+    private void setSize_label(){
+        size_label.setText(String.valueOf(attribute.getSize2()));
+    }
+    private void setPosition_label(){
+        position_label.setText(attribute.getPath());
+    }
+    private void setAttribute_label(){
+        attribute_label.setText(String.valueOf(attribute.get_type()));
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Stage stage = new Stage();
+    }
 
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/View/FileAttribute.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        stage.setTitle("文件名");
-        stage.setResizable(false);
-        Scene scene = new Scene(root, 320, 480);
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
-
-        filename.setText("filename");
-        size.setText("size");
-        position.setText("position");
-        attribute.setText("attribute");
+    public void init(){
+      setAttribute_label();
+      setFilename_label();
+      setPosition_label();
+      setSize_label();
     }
 }

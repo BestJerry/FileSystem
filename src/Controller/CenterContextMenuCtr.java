@@ -9,13 +9,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lhw.left.Folder;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CenterContextMenuCtr implements Initializable{
+public class CenterContextMenuCtr implements Initializable {
 
     @FXML
     private MenuItem create_folder_item;
@@ -23,6 +26,22 @@ public class CenterContextMenuCtr implements Initializable{
     @FXML
     private MenuItem create_file_item;
 
+    private FlowPane flowPane;
+
+    private Folder folder;
+
+    public Folder getFolder() {
+        return folder;
+    }
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
+    }
+
+
+    public void setFlowPane(FlowPane flowPane) {
+        this.flowPane = flowPane;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,16 +58,20 @@ public class CenterContextMenuCtr implements Initializable{
 
         Parent root = fxmlLoader.load(location.openStream());
         CheckCreateCtr checkCreateCtr = fxmlLoader.getController();
+        checkCreateCtr.setIsfolder(true);
         checkCreateCtr.setText(1);
-
-
+        checkCreateCtr.setFolder(folder);
+        checkCreateCtr.setFlowPane(flowPane);
 
         Stage stage = new Stage();
+        checkCreateCtr.setStage(stage);
         stage.setTitle("新建文件夹");
         stage.setResizable(false);
         Scene scene = new Scene(root, 480, 180);
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
+        //设置模态窗口
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
@@ -61,14 +84,19 @@ public class CenterContextMenuCtr implements Initializable{
 
         Parent root = fxmlLoader.load(location.openStream());
         CheckCreateCtr checkCreateCtr = fxmlLoader.getController();
+        checkCreateCtr.setIsfolder(false);
+        checkCreateCtr.setFlowPane(flowPane);
         checkCreateCtr.setText(2);
-
+        checkCreateCtr.setFolder(folder);
         Stage stage = new Stage();
+        checkCreateCtr.setStage(stage);
         stage.setTitle("新建文件");
         stage.setResizable(false);
         Scene scene = new Scene(root, 480, 180);
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
+        //设置模态窗口
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 }

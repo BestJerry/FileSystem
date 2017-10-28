@@ -88,15 +88,19 @@ public abstract class Attribute {
     public static enum type {
         FOLDER, FILE;
     }
-
+    public  Folder getFaNode(){
+        return (Folder) faNode;
+    }
     public static boolean is_correctName(String name) {
         if (name == null || name.length() > 5 || name.length() == 0)
             return false;
+
         boolean flag = false;
         for (int i = 0; i < name.length(); i++) {
             char c = name.charAt(i);
             if (c == '$' || c == '/' || c == '.')
                 return false;
+            if(c < 0 || c > 255) return  false;
             if(c !=' ')
                 flag = true;
         }
