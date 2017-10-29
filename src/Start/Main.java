@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -41,7 +43,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader_two = new FXMLLoader();
         fxmlLoader_two.setLocation(location_two);
         fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
-        VBox leftView = fxmlLoader_two.load(location_two.openStream());
+        TreeView leftView = fxmlLoader_two.load(location_two.openStream());
         LeftViewCtr leftViewCtr = fxmlLoader_two.getController();
         leftViewCtr.setFolder(folder);
         leftViewCtr.init();
@@ -56,7 +58,7 @@ public class Main extends Application {
         centerViewCtr.init();
 
 
-        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
+        TableView rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         root.setTop(topMenu);
         root.setLeft(leftView);
         root.setCenter(centerView);
