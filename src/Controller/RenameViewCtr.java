@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -140,12 +137,12 @@ public class RenameViewCtr implements Initializable {
         FXMLLoader fxmlLoader_two = new FXMLLoader();
         fxmlLoader_two.setLocation(location_two);
         fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
-        VBox leftView = fxmlLoader_two.load(location_two.openStream());
+        TreeView leftView = fxmlLoader_two.load(location_two.openStream());
         LeftViewCtr leftViewCtr = fxmlLoader_two.getController();
         leftViewCtr.setFolder(folder);
         leftViewCtr.init();
 
-        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
+        TableView rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
 
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();

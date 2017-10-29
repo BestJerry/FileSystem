@@ -3,12 +3,14 @@ package Controller;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lhw.left.TextFile;
 
+import javax.swing.text.TableView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -65,7 +67,7 @@ public class CheckSaveCtr implements Initializable {
     }
 
     public void updateUI() throws IOException {
-        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
+        Node  rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
 
