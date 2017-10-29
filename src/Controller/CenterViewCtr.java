@@ -2,19 +2,13 @@ package Controller;
 
 import java.io.IOException;
 
-import Utility.ReadAndWrite;
-import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import lhw.left.Attribute;
 import lhw.left.Folder;
 import javafx.fxml.FXML;
@@ -83,7 +77,7 @@ public class CenterViewCtr implements Initializable {
 
         for (Attribute son : files) {
             if (son instanceof Folder) {
-                URL location = getClass().getResource("/View/SubFileOrFolderView.fxml");
+                URL location = getClass().getResource("/resources/SubFileOrFolderView.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(location);
                 fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -97,7 +91,7 @@ public class CenterViewCtr implements Initializable {
                 subFileOrFolderCtr.setNode(node);
                 flowpane.getChildren().add(node);
             } else {
-                URL location = getClass().getResource("/View/SubFileOrFolderView.fxml");
+                URL location = getClass().getResource("/resources/SubFileOrFolderView.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(location);
                 fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -218,7 +212,7 @@ public class CenterViewCtr implements Initializable {
 
         } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
 
-                URL location = getClass().getResource("/View/CenterContextMenuView.fxml");
+                URL location = getClass().getResource("/resources/CenterContextMenuView.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(location);
                 fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());

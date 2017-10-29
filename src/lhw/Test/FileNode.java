@@ -1,27 +1,20 @@
 package lhw.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
-import Controller.CenterViewCtr;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -69,9 +62,9 @@ public class FileNode extends BorderPane {
         double w = widthUnit - 10, h = heightUnit - 10;
         ImageView thumImg;
         if (file instanceof Folder)
-            thumImg = new ImageView(new Image("/Picture/folderIcon.png", w, h, false, false));
+            thumImg = new ImageView(new Image("/resources/folderIcon.png", w, h, false, false));
         else {
-            thumImg = new ImageView(new Image("/Picture/fileIcon.png", w, h, false, false));
+            thumImg = new ImageView(new Image("/resources/fileIcon.png", w, h, false, false));
         }
         this.setCenter(thumImg);
         Label label = new Label(file.getName());
@@ -98,7 +91,7 @@ public class FileNode extends BorderPane {
                // CenterViewCtr.folder = (Folder) this.file;
                 ScrollPane centerView = null;
                 try {
-                    centerView = FXMLLoader.load(getClass().getResource("/View/CenterView.fxml"));
+                    centerView = FXMLLoader.load(getClass().getResource("/resources/CenterView.fxml"));
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -219,9 +212,9 @@ public class FileNode extends BorderPane {
     }
 
     public void updateUI() throws IOException {
-        HBox topmenu = FXMLLoader.load(getClass().getResource("/View/TopMenu.fxml"));
-        VBox leftView = FXMLLoader.load(getClass().getResource("/View/LeftView.fxml"));
-        VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
+        HBox topmenu = FXMLLoader.load(getClass().getResource("/resources/TopMenu.fxml"));
+        VBox leftView = FXMLLoader.load(getClass().getResource("/resources/LeftView.fxml"));
+        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
         root.setTop(topmenu);

@@ -47,9 +47,9 @@ public class LeftViewCtr implements Initializable{
     }
 
     private final Image folderIcon =
-            new Image(getClass().getResourceAsStream("/Picture/folderIcon.png"));
+            new Image(getClass().getResourceAsStream("/resources/folderIcon.png"));
     private final Image fileIcon =
-            new Image(getClass().getResourceAsStream("/Picture/fileIcon.png"));
+            new Image(getClass().getResourceAsStream("/resources/fileIcon.png"));
 
 
 
@@ -89,7 +89,7 @@ public class LeftViewCtr implements Initializable{
     }
 
     /**
-     * 遍历文件夹，获取treeview结点
+     * ????????У????treeview???
      * @param rootItem
      * @param root
      */
@@ -109,7 +109,7 @@ public class LeftViewCtr implements Initializable{
 
     private void updateCenterView(Folder folder) throws IOException {
 
-        URL location = getClass().getResource("/View/TopMenu.fxml");
+        URL location = getClass().getResource("/resources/TopMenu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -117,7 +117,7 @@ public class LeftViewCtr implements Initializable{
         TopMenuCtr topMenuCtr = fxmlLoader.getController();
         topMenuCtr.setText(folder.getPath());
 
-        URL location_two = getClass().getResource("/View/CenterView.fxml");
+        URL location_two = getClass().getResource("/resources/CenterView.fxml");
         FXMLLoader fxmlLoader_two = new FXMLLoader();
         fxmlLoader_two.setLocation(location_two);
         fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());

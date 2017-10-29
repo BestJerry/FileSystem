@@ -1,6 +1,5 @@
 package Controller;
 
-import com.sun.javafx.image.BytePixelSetter;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import lhw.left.Attribute;
 import lhw.left.TextFile;
 
 import java.io.IOException;
@@ -50,7 +48,7 @@ public class FileContentCtr implements Initializable{
                     return;
                 }
                 else {
-                    URL location = getClass().getResource("/View/CheckSaveView.fxml");
+                    URL location = getClass().getResource("/resources/CheckSaveView.fxml");
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(location);
                     fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());

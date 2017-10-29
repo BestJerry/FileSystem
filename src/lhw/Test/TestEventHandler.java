@@ -36,7 +36,7 @@ public class TestEventHandler implements EventHandler<MouseEvent> {
                         CenterViewCtr.folder  = (Folder) file;
                         ScrollPane centerView = null;
                         try {
-                            centerView = FXMLLoader.load(getClass().getResource("/View/CenterView.fxml"));
+                            centerView = FXMLLoader.load(getClass().getResource("/resources.View/CenterView.fxml"));
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }

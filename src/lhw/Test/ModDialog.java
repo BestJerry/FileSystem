@@ -11,8 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lhw.left.Attribute;
-import lhw.left.Folder;
 
 import java.io.IOException;
 
@@ -89,9 +87,9 @@ public class ModDialog {// ????
 
 	}*/
 	public  void updateUI() throws IOException {
-		HBox topmenu = FXMLLoader.load(getClass().getResource("/View/TopMenu.fxml"));
-		VBox leftView = FXMLLoader.load(getClass().getResource("/View/LeftView.fxml"));
-		VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
+		HBox topmenu = FXMLLoader.load(getClass().getResource("/resources/TopMenu.fxml"));
+		VBox leftView = FXMLLoader.load(getClass().getResource("/resources/LeftView.fxml"));
+		VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
 		Stage stage = FXRobotHelper.getStages().get(0);
 		BorderPane root = (BorderPane) stage.getScene().getRoot();
 		root.setTop(topmenu);

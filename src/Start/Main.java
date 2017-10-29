@@ -9,18 +9,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import lhw.Test.ModDialog;
-import lhw.left.FileIO;
 import lhw.left.Folder;
 
-import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -28,13 +23,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        BorderPane root = FXMLLoader.load(getClass().getResource("../View/MainView.fxml"));
+        BorderPane root = FXMLLoader.load(getClass().getResource("/resources/MainView.fxml"));
 
         primaryStage.setTitle("FileSystem");
         primaryStage.setScene(new Scene(root, 1024, 640));
         primaryStage.setResizable(false);
 
-        URL location = getClass().getResource("/View/TopMenu.fxml");
+        URL location = getClass().getResource("/resources/TopMenu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -42,7 +37,7 @@ public class Main extends Application {
         TopMenuCtr topMenuCtr = fxmlLoader.getController();
         topMenuCtr.setText(folder.getPath());
 
-        URL location_two = getClass().getResource("/View/LeftView.fxml");
+        URL location_two = getClass().getResource("/resources/LeftView.fxml");
         FXMLLoader fxmlLoader_two = new FXMLLoader();
         fxmlLoader_two.setLocation(location_two);
         fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
@@ -51,7 +46,7 @@ public class Main extends Application {
         leftViewCtr.setFolder(folder);
         leftViewCtr.init();
 
-        URL location_three = getClass().getResource("/View/CenterView.fxml");
+        URL location_three = getClass().getResource("/resources/CenterView.fxml");
         FXMLLoader fxmlLoader_three = new FXMLLoader();
         fxmlLoader_three.setLocation(location_three);
         fxmlLoader_three.setBuilderFactory(new JavaFXBuilderFactory());
@@ -61,7 +56,7 @@ public class Main extends Application {
         centerViewCtr.init();
 
 
-        VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
+        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         root.setTop(topMenu);
         root.setLeft(leftView);
         root.setCenter(centerView);

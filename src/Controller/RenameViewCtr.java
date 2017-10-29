@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lhw.left.Attribute;
-import lhw.left.FAT;
 import lhw.left.Folder;
 
 import java.io.IOException;
@@ -120,7 +119,7 @@ public class RenameViewCtr implements Initializable {
 
     public void updateUI() throws IOException {
 
-        URL location = getClass().getResource("/View/TopMenu.fxml");
+        URL location = getClass().getResource("/resources/TopMenu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -128,7 +127,7 @@ public class RenameViewCtr implements Initializable {
         TopMenuCtr topMenuCtr = fxmlLoader.getController();
         topMenuCtr.setText(folder.getPath());
 
-        URL location_three = getClass().getResource("/View/CenterView.fxml");
+        URL location_three = getClass().getResource("/resources/CenterView.fxml");
         FXMLLoader fxmlLoader_three = new FXMLLoader();
         fxmlLoader_three.setLocation(location_three);
         fxmlLoader_three.setBuilderFactory(new JavaFXBuilderFactory());
@@ -137,7 +136,7 @@ public class RenameViewCtr implements Initializable {
         centerViewCtr.setFolder(folder);
         centerViewCtr.init();
 
-        URL location_two = getClass().getResource("/View/LeftView.fxml");
+        URL location_two = getClass().getResource("/resources/LeftView.fxml");
         FXMLLoader fxmlLoader_two = new FXMLLoader();
         fxmlLoader_two.setLocation(location_two);
         fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
@@ -146,7 +145,7 @@ public class RenameViewCtr implements Initializable {
         leftViewCtr.setFolder(folder);
         leftViewCtr.init();
 
-        VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
+        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
 
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();

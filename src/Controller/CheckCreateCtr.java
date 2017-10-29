@@ -87,7 +87,7 @@ public class CheckCreateCtr implements Initializable {
             public void getResult(String message, Attribute attribute) throws IOException {
                 if (message.equals("创建成功！") && attribute != null) {
 
-                    URL location = getClass().getResource("/View/SubFileOrFolderView.fxml");
+                    URL location = getClass().getResource("/resources/SubFileOrFolderView.fxml");
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(location);
                     fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -127,8 +127,8 @@ public class CheckCreateCtr implements Initializable {
     }
 
     public void updateUI() throws IOException {
-       // HBox topMenu = FXMLLoader.load(getClass().getResource("/View/TopMenu.fxml"));
-        URL location = getClass().getResource("/View/TopMenu.fxml");
+       // HBox topMenu = FXMLLoader.load(getClass().getResource("/resources.View/TopMenu.fxml"));
+        URL location = getClass().getResource("/resources/TopMenu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -137,8 +137,8 @@ public class CheckCreateCtr implements Initializable {
         topMenuCtr.setText(folder.getPath());
 
 
-        //VBox leftView = FXMLLoader.load(getClass().getResource("/View/LeftView.fxml"));
-        URL location_two = getClass().getResource("/View/LeftView.fxml");
+        //VBox leftView = FXMLLoader.load(getClass().getResource("/resources.View/LeftView.fxml"));
+        URL location_two = getClass().getResource("/resources/LeftView.fxml");
         FXMLLoader fxmlLoader_two = new FXMLLoader();
         fxmlLoader_two.setLocation(location_two);
         fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
@@ -148,14 +148,14 @@ public class CheckCreateCtr implements Initializable {
         leftViewCtr.init();
 
 
-        VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
+        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
         root.setTop(topMenu);
         root.setLeft(leftView);
         root.setRight(rightView);
 
-        URL location_three = getClass().getResource("/View/CenterView.fxml");
+        URL location_three = getClass().getResource("/resources/CenterView.fxml");
         FXMLLoader fxmlLoader_three = new FXMLLoader();
         fxmlLoader_three.setLocation(location_three);
         fxmlLoader_three.setBuilderFactory(new JavaFXBuilderFactory());

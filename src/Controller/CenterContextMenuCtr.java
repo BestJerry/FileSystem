@@ -51,7 +51,7 @@ public class CenterContextMenuCtr implements Initializable {
 
     public void createFolder(ActionEvent actionEvent) throws IOException {
 
-        URL location = getClass().getResource("/View/CheckCreateView.fxml");
+        URL location = getClass().getResource("/resources/CheckCreateView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -77,7 +77,7 @@ public class CenterContextMenuCtr implements Initializable {
 
     public void createFile(ActionEvent actionEvent) throws IOException {
 
-        URL location = getClass().getResource("/View/CheckCreateView.fxml");
+        URL location = getClass().getResource("/resources/CheckCreateView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());

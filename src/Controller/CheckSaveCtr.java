@@ -65,7 +65,7 @@ public class CheckSaveCtr implements Initializable {
     }
 
     public void updateUI() throws IOException {
-        VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
+        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
 

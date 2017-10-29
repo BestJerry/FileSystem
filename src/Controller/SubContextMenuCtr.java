@@ -1,11 +1,7 @@
 package Controller;
 
-import com.oracle.webservices.internal.api.message.PropertySet;
 import com.sun.javafx.robot.impl.FXRobotHelper;
-import com.sun.media.sound.ModelPatch;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,10 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,7 +21,6 @@ import lhw.left.TextFile;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 public class SubContextMenuCtr implements Initializable{
@@ -88,7 +79,7 @@ public class SubContextMenuCtr implements Initializable{
 
     public void open(ActionEvent actionEvent) throws IOException {
         if (attribute instanceof Folder) {
-            URL location = getClass().getResource("/View/CenterView.fxml");
+            URL location = getClass().getResource("/resources/CenterView.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(location);
             fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -111,7 +102,7 @@ public class SubContextMenuCtr implements Initializable{
 
         Stage stage = new Stage();
 
-        URL location = getClass().getResource("/View/FileAttributeView.fxml");
+        URL location = getClass().getResource("/resources/FileAttributeView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -143,7 +134,7 @@ public class SubContextMenuCtr implements Initializable{
     }
 
     public void rename(ActionEvent actionEvent) throws IOException {
-        URL location = getClass().getResource("/View/RenameView.fxml");
+        URL location = getClass().getResource("/resources/RenameView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -173,7 +164,7 @@ public class SubContextMenuCtr implements Initializable{
     }
 
     public void updateUI() throws IOException {
-        URL location = getClass().getResource("/View/TopMenu.fxml");
+        URL location = getClass().getResource("/resources/TopMenu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
@@ -181,7 +172,7 @@ public class SubContextMenuCtr implements Initializable{
         TopMenuCtr topMenuCtr = fxmlLoader.getController();
         topMenuCtr.setText(folder.getPath());
 
-        URL location_two = getClass().getResource("/View/LeftView.fxml");
+        URL location_two = getClass().getResource("/resources/LeftView.fxml");
         FXMLLoader fxmlLoader_two = new FXMLLoader();
         fxmlLoader_two.setLocation(location_two);
         fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
@@ -190,7 +181,7 @@ public class SubContextMenuCtr implements Initializable{
         leftViewCtr.setFolder(folder);
         leftViewCtr.init();
 
-        VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
+        VBox rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
         root.setTop(topMenu);
@@ -203,7 +194,7 @@ public class SubContextMenuCtr implements Initializable{
         ((TextFile) attribute).setIs_open(true);
         Stage stage = new Stage();
         FileContentCtr.stage = stage;
-        URL location = getClass().getResource("/View/FileContentView.fxml");
+        URL location = getClass().getResource("/resources/FileContentView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
