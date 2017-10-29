@@ -43,6 +43,15 @@ public class FileIO {
             if (f.getName().endsWith(".dat") && f.getName().startsWith("data_"))
                 files.add(f);
         }
+        if(files.size()==0){
+            File f = new File("data_0.dat");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            files.add(f);
+        }
         files.sort(new Comparator<File>() {
             public int compare(File o1, File o2) {
                 int end1 = o1.getName().lastIndexOf(".dat") - 1, end2 = o2.getName().lastIndexOf(".dat") - 1;
@@ -133,9 +142,11 @@ public class FileIO {
         raf.seek(disk * size);
         byte[] b = file.getContent().getBytes();
         int next = disk, start = 0;
+
         while (b.length > start) {
             raf.write(b, start, size > b.length - start ? b.length - start : size);
             next = FAT.FAT[next];
+
             raf.seek(next * size);
             start += size;
         }
@@ -155,10 +166,10 @@ public class FileIO {
                head = read(raf, head);
            } catch (Exception e) {
                head = new Folder(System.getProperty("user.dir"));
-               head.startDisk = FAT.assignDisk();
                FAT.initialFAT();
+               head.startDisk = FAT.assignDisk();
                clear();// 可能数据有毒=_=
-               throw new Exception("data error or file is empty!");
+              // throw new Exception("data error or file is empty!");
            }
            raf.close();
         }

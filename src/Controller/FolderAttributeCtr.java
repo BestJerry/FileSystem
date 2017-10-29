@@ -25,29 +25,9 @@ public class FolderAttributeCtr implements Initializable{
 
     @FXML
     private Label attribute;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Stage stage = new Stage();
-
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/View/FolderAttribute.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        stage.setTitle("文件名");
-        stage.setResizable(false);
-        Scene scene = new Scene(root, 320, 480);
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
-
-
-        foldername.setText("filename");
-        size.setText("size");
-        position.setText("position");
-        attribute.setText("attribute");
     }
 }

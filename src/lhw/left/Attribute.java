@@ -9,6 +9,7 @@ public abstract class Attribute {
     public String getPath() {
         return path;
     }
+
     public boolean setName(String name) {
         if(!is_correctName(name)) return false;
         this.name = name;
@@ -91,6 +92,7 @@ public abstract class Attribute {
     public  Folder getFaNode(){
         return (Folder) faNode;
     }
+
     public static boolean is_correctName(String name) {
         if (name == null || name.length() > 5 || name.length() == 0)
             return false;

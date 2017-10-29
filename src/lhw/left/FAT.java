@@ -48,8 +48,8 @@ public class FAT {
 
     /**
      * 修改文件后，文件占用需添加num块磁盘，请求分配num块磁盘
-     *
-     * @param num为文件需要添加的磁盘块数，num>0分配，num<0回收
+     * num为文件需要添加的磁盘块数
+     * @param num>0分配，num<0回收
      * @return true则成功,false则剩余磁盘不足分配
      */
     protected static boolean assignDisk(int startDisk, int num) {

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.text.Font?>
 
 
-<TextArea fx:id="content" prefHeight="480.0" prefWidth="480.0" wrapText="true" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FileContentCtr" />
+<TextArea fx:id="content_text" prefHeight="480.0" prefWidth="480.0" wrapText="true" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FileContentCtr">
+   <font>
+      <Font size="16.0" />
+   </font>
+</TextArea>

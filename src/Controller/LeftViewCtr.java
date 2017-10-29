@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lhw.left.Attribute;
@@ -39,6 +40,12 @@ public class LeftViewCtr implements Initializable{
     @FXML
     private TreeView<Attribute> file_structure;
 
+    private Folder folder;
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
+    }
+
     private final Image folderIcon =
             new Image(getClass().getResourceAsStream("/Picture/folderIcon.png"));
     private final Image fileIcon =
@@ -48,9 +55,14 @@ public class LeftViewCtr implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void init(){
         try {
 
             Folder root = ReadAndWrite.root;
+            System.out.println(root);
             TreeItem<Attribute> file_structure_rootItem = new TreeItem<>(root, new ImageView(folderIcon));
             traverseFolder(file_structure_rootItem, root);
             file_structure.setRoot(file_structure_rootItem);
@@ -97,17 +109,25 @@ public class LeftViewCtr implements Initializable{
 
     private void updateCenterView(Folder folder) throws IOException {
 
-        URL location = getClass().getResource("/View/CenterView.fxml");
+        URL location = getClass().getResource("/View/TopMenu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        ScrollPane scrollPane  = fxmlLoader.load(location.openStream());
-        CenterViewCtr centerViewCtr = fxmlLoader.getController();
+        HBox topMenu = fxmlLoader.load(location.openStream());
+        TopMenuCtr topMenuCtr = fxmlLoader.getController();
+        topMenuCtr.setText(folder.getPath());
+
+        URL location_two = getClass().getResource("/View/CenterView.fxml");
+        FXMLLoader fxmlLoader_two = new FXMLLoader();
+        fxmlLoader_two.setLocation(location_two);
+        fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
+        ScrollPane scrollPane  = fxmlLoader_two.load(location_two.openStream());
+        CenterViewCtr centerViewCtr = fxmlLoader_two.getController();
         centerViewCtr.setFolder(folder);
-        //centerViewCtr.setFolder(folder);
         centerViewCtr.init();
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
+        root.setTop(topMenu);
         root.setCenter(scrollPane);
     }
 

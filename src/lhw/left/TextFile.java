@@ -5,7 +5,12 @@ import java.io.File;
 public class TextFile extends Attribute {
     private String content = "";
     private boolean only_read = false;
-    private boolean is_open = false;
+    private boolean is_open = true;
+
+
+    public void setIs_open(boolean is_open) {
+        this.is_open = is_open;
+    }
 
     protected TextFile(String path) {
         this.name = path.substring(path.lastIndexOf(File.separator) + 1);
@@ -35,6 +40,8 @@ public class TextFile extends Attribute {
         this.updateSize();
         this.size = content.length();
         this.disklen = FAT.getFileDisk(this.getStartDisk()).size();
+        System.out.println(disklen+" "+size+" "+content+" "+this.name);
+        this.setOpenOrClose(false);
         return  true;
     }
 
@@ -57,7 +64,6 @@ public class TextFile extends Attribute {
         if (is_open == false)
             throw new Exception("文件未打开，无法进行此操作");
         if (is_save) {
-            setOpenOrClose(false);
             return save(content);
         }
         return true;

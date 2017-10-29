@@ -41,8 +41,37 @@ public class Folder extends Attribute {
      */
     public void add(String name, boolean is_folder, addCallback addCallback) throws IOException {
         String message = "";
-        Attribute temp;
+        Attribute temp = null;
         boolean flag = true;
+
+        if (is_correctName(name) == false) {
+            //new ModDialog().messageDialog("错误的文件名！");
+            message = "错误的文件名！";
+            addCallback.getResult(message, temp);
+            return;
+        } else if (linkedList.size() == 8) {
+            //new ModDialog().messageDialog("文件夹已满！");
+            message = "文件夹已满！";
+            addCallback.getResult(message, temp);
+            return;
+        } else {
+
+            for (Attribute attribute : this.listFolder()) {
+                if (attribute.getName().equals(name) == true && (attribute instanceof Folder == is_folder)) {
+                    //new ModDialog().messageDialog("名字与其他文件重复");
+                    message = "名字与其他文件重复！";
+
+                    flag = false;
+
+                    break;
+                }
+            }
+            if (!flag){
+                addCallback.getResult(message, temp);
+                return;
+            }
+
+        }
         int startDiskNum = FAT.assignDisk();
         if (is_folder) {
             temp = new Folder(this.path + File.separator + name);
@@ -50,35 +79,17 @@ public class Folder extends Attribute {
             temp = new TextFile(this.path + File.separator + name);
         }
 
-        System.out.println(temp + " " + is_correctName(name));
         if (startDiskNum == -1) {
             //new ModDialog().messageDialog("空闲磁盘不足！");
             message = "空闲磁盘不足！";
-
-        } else if (linkedList.size() == 8) {
-            //new ModDialog().messageDialog("文件夹已满！");
-            message = "文件夹已满！";
-
-        } else if (is_correctName(name) == false) {
-            //new ModDialog().messageDialog("错误的文件名！");
-            message = "错误的文件名！";
-        } else {
-
-            for (Attribute attribute : this.listFolder()) {
-                if (attribute.getName().equals(name) == true && attribute.getClass() == temp.getClass()) {
-                    //new ModDialog().messageDialog("名字与其他文件重复");
-                    message = "名字与其他文件重复！";
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag) {
-                temp.startDisk = startDiskNum;
-                linkedList.add(temp);
-                temp.faNode = this;
-                temp.updateSize();
-                message = "创建成功！";
-            }
+            addCallback.getResult(message, temp);
+            return;
+        }else{
+            temp.startDisk = startDiskNum;
+            linkedList.add(temp);
+            temp.faNode = this;
+            temp.updateSize();
+            message = "创建成功！";
         }
         addCallback.getResult(message, temp);
     }

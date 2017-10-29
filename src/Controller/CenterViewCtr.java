@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+import Utility.ReadAndWrite;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -40,13 +41,14 @@ public class CenterViewCtr implements Initializable {
     private LinkedList<Attribute> files = new LinkedList<>();
 
     //当前所在文件夹folder
-    public static Folder folder;
+    private  Folder folder;
 
-    public static void setFolder(Folder folder) {
-        CenterViewCtr.folder = folder;
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
     }
 
-    /*private double FPWIDTH = Constant.FPWIDTH = 500, FPHEIGHT = Constant.FPHEIGHT = 560;
+   /*private double FPWIDTH = Constant.FPWIDTH = 500, FPHEIGHT = Constant.FPHEIGHT = 560;
    private static double row = 6, col = 6;
    private double WIDTHUNIT = Constant.WIDTHUNIT = FPWIDTH / col, HEIGHTUNIT = Constant.HEIGHTUNIT = FPHEIGHT / row;
 
@@ -197,16 +199,6 @@ public class CenterViewCtr implements Initializable {
         }
     }*/
 
-    public void updateUI() throws IOException {
-        HBox topmenu = FXMLLoader.load(getClass().getResource("/View/TopMenu.fxml"));
-        VBox leftView = FXMLLoader.load(getClass().getResource("/View/LeftView.fxml"));
-        VBox rightView = FXMLLoader.load(getClass().getResource("/View/RightView.fxml"));
-        Stage stage = FXRobotHelper.getStages().get(0);
-        BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topmenu);
-        root.setLeft(leftView);
-        root.setRight(rightView);
-    }
 
     /**
      * 打开右键菜单
