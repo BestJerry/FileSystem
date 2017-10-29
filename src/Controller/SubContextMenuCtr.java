@@ -13,9 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lhw.left.Attribute;
-import lhw.left.Folder;
-import lhw.left.TextFile;
+import Model.Attribute;
+import Model.Folder;
+import Model.TextFile;
 
 import java.io.IOException;
 import java.net.URL;
@@ -191,7 +191,7 @@ public class SubContextMenuCtr implements Initializable{
         ((TextFile)attribute).open();
         ((TextFile) attribute).setIs_open(true);
         Stage stage = new Stage();
-        FileContentCtr.stage = stage;
+
         URL location = getClass().getResource("/resources/FileContentView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
@@ -199,6 +199,7 @@ public class SubContextMenuCtr implements Initializable{
         Parent root = fxmlLoader.load(location.openStream());
         FileContentCtr fileContentCtr  = fxmlLoader.getController();
         fileContentCtr.setTextFile((TextFile) attribute);
+        fileContentCtr.setStage(stage);
         fileContentCtr.setContent_text();
         stage.setTitle(attribute.getName());
         stage.setResizable(false);

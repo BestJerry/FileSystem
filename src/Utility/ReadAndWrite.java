@@ -1,7 +1,7 @@
 package Utility;
 
-import lhw.left.FileIO;
-import lhw.left.Folder;
+import Model.FileIO;
+import Model.Folder;
 
 import java.io.File;
 import java.io.IOException;

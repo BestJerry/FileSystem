@@ -11,7 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import lhw.left.TextFile;
+import Model.TextFile;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,20 +24,10 @@ public class FileContentCtr implements Initializable{
 
     private TextFile textFile;
 
-    public static Stage stage;
+    private Stage stage = new Stage();
 
-
-
-    public void setTextFile(TextFile textFile) {
-        this.textFile = textFile;
-    }
-
-    public void setContent_text(){
-        content_text.setText(textFile.getContent());
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void setStage(Stage stage) {
+        this.stage = stage;
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -77,6 +67,20 @@ public class FileContentCtr implements Initializable{
 
             }
         });
+    }
+
+    public void setTextFile(TextFile textFile) {
+        this.textFile = textFile;
+    }
+
+    public void setContent_text(){
+        content_text.setText(textFile.getContent());
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 
 

@@ -1,6 +1,5 @@
-package lhw.left;
+package Model;
 
-import lhw.Test.ModDialog;
 
 import java.util.ArrayList;
 

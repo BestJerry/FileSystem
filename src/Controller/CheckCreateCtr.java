@@ -12,10 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import lhw.left.Attribute;
-import lhw.left.Folder;
+import Model.Attribute;
+import Model.Folder;
 
 import java.io.IOException;
 import java.net.URL;

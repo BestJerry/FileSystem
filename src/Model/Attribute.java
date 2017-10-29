@@ -1,4 +1,4 @@
-package lhw.left;
+package Model;
 
 
 public abstract class Attribute {

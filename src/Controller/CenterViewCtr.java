@@ -9,8 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import lhw.left.Attribute;
-import lhw.left.Folder;
+import Model.Attribute;
+import Model.Folder;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 

@@ -1,4 +1,4 @@
-package Start;
+package Model;
 
 import Controller.CenterViewCtr;
 import Controller.LeftViewCtr;
@@ -15,7 +15,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import lhw.left.Folder;
 
 import java.net.URL;
 

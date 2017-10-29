@@ -1,6 +1,6 @@
 package Interface;
 
-import lhw.left.Attribute;
+import Model.Attribute;
 
 import java.io.IOException;
 

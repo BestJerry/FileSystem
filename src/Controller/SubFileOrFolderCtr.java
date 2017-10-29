@@ -19,9 +19,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import lhw.left.Attribute;
-import lhw.left.Folder;
-import lhw.left.TextFile;
+import Model.Attribute;
+import Model.Folder;
+import Model.TextFile;
 
 import java.io.IOException;
 import java.net.URL;
@@ -105,8 +105,12 @@ public class SubFileOrFolderCtr implements Initializable {
                 BorderPane root = (BorderPane) stage.getScene().getRoot();
                 root.setCenter(scrollPane);
             } else {
+                if(!((TextFile)attribute).is_open()){
+                    showFileContent();
+                }else{
+                    return;
+                }
 
-                showFileContent();
             }
 
         } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
@@ -137,33 +141,6 @@ public class SubFileOrFolderCtr implements Initializable {
     }
 
 
-   /*public void updateUI() throws IOException {
-        URL location_one = getClass().getResource("/resources.View/TopMenu.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(location_one);
-        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        HBox topMenu = fxmlLoader.load(location_one.openStream());
-        TopMenuCtr topMenuCtr = fxmlLoader.getController();
-        topMenuCtr.setText(folder.getPath());
-        VBox leftView = FXMLLoader.load(getClass().getResource("/resources.View/LeftView.fxml"));
-        VBox rightView = FXMLLoader.load(getClass().getResource("/resources.View/RightView.fxml"));
-        Stage stage = FXRobotHelper.getStages().get(0);
-        BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topMenu);
-        root.setLeft(leftView);
-        root.setRight(rightView);
-
-        URL location_two = getClass().getResource("/resources.View/CenterView.fxml");
-        FXMLLoader fxmlLoader_two = new FXMLLoader();
-        fxmlLoader_two.setLocation(location_two);
-        fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
-        ScrollPane scrollPane  = fxmlLoader_two.load(location_two.openStream());
-        CenterViewCtr centerViewCtr = fxmlLoader_two.getController();
-        centerViewCtr.setFolder(folder);
-        centerViewCtr.init();
-        root.setCenter(scrollPane);
-
-    }*/
 
     public void rename(ActionEvent actionEvent) {
 
@@ -173,7 +150,6 @@ public class SubFileOrFolderCtr implements Initializable {
     private void showFileContent() throws IOException {
         ((TextFile) attribute).open();
         Stage stage = new Stage();
-        FileContentCtr.stage = stage;
         URL location = getClass().getResource("/resources/FileContentView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
@@ -181,6 +157,7 @@ public class SubFileOrFolderCtr implements Initializable {
         Parent root = fxmlLoader.load(location.openStream());
         FileContentCtr fileContentCtr = fxmlLoader.getController();
         fileContentCtr.setTextFile((TextFile) attribute);
+        fileContentCtr.setStage(stage);
         fileContentCtr.setContent_text();
         stage.setTitle(attribute.getName());
         stage.setResizable(false);
