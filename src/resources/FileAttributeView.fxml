@@ -44,7 +44,7 @@
          <children>
             <CheckBox fx:id="only_read_box" mnemonicParsing="false" text="只读" />
             <CheckBox fx:id="read_write_box" mnemonicParsing="false" text="读写" />
-            <CheckBox fx:id="hide_box" mnemonicParsing="false" text="隐藏" />
+            <CheckBox fx:id="hide_box" mnemonicParsing="false" text="隐藏" visible="false" />
          </children></HBox>
    </children>
 </GridPane>

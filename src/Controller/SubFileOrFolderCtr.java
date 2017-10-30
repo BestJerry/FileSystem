@@ -158,6 +158,9 @@ public class SubFileOrFolderCtr implements Initializable {
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
         Parent root = fxmlLoader.load(location.openStream());
         FileContentCtr fileContentCtr = fxmlLoader.getController();
+        if (((TextFile) attribute).isOnly_read()) {
+            fileContentCtr.setUnEditable();
+        }
         fileContentCtr.setTextFile((TextFile) attribute);
         fileContentCtr.setStage(stage);
         fileContentCtr.setAttribute(attribute);

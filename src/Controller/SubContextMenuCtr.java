@@ -90,8 +90,10 @@ public class SubContextMenuCtr implements Initializable{
             root.setCenter(scrollPane);
             updateTopMenuPath(attribute);
         } else {
-            if(!((TextFile)attribute).is_open())
+            if(!((TextFile)attribute).is_open()){
                 showFileContent();
+            }
+
         }
 
 
@@ -200,6 +202,9 @@ public class SubContextMenuCtr implements Initializable{
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
         Parent root = fxmlLoader.load(location.openStream());
         FileContentCtr fileContentCtr  = fxmlLoader.getController();
+        if (((TextFile) attribute).isOnly_read()) {
+            fileContentCtr.setUnEditable();
+        }
         fileContentCtr.setTextFile((TextFile) attribute);
         fileContentCtr.setStage(stage);
         fileContentCtr.setAttribute(attribute);

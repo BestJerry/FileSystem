@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 public class TextFile extends Attribute {
     private String content = "";
     private boolean only_read = false;
-    private boolean is_open = true;
+    private boolean is_open = false;
 
 
     public void setIs_open(boolean is_open) {

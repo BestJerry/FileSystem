@@ -29,6 +29,9 @@ public class FileContentCtr implements Initializable {
 
     private Attribute attribute;
 
+    public void setUnEditable(){
+        content_text.setEditable(false);
+    }
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
@@ -40,6 +43,7 @@ public class FileContentCtr implements Initializable {
             @Override
             public void handle(WindowEvent event) {
                 if (((TextFile) attribute).isOnly_read()) {
+                    ((TextFile) attribute).setIs_open(false);
                     return;
                 }
                 //调用event.consume()来阻止事件进一步传递
