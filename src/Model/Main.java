@@ -56,8 +56,8 @@ public class Main extends Application {
         centerViewCtr.setFolder(folder);
         centerViewCtr.init();
 
-
         TableView rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
+
         root.setTop(topMenu);
         root.setLeft(leftView);
         root.setCenter(centerView);

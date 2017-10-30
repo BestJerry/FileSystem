@@ -13,6 +13,11 @@
             <font>
                 <Font size="18.0" />
             </font></Label>
+      <Label fx:id="tips_label" alignment="CENTER" contentDisplay="CENTER" text="文件已打开！" textFill="RED" visible="false" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
       <HBox alignment="CENTER" spacing="48.0">
          <VBox.margin>
             <Insets top="10.0" />
@@ -23,7 +28,7 @@
                       <Font size="14.0" />
                   </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#cancelDelete" text="取消" fx:id="cancel_button">
+            <Button fx:id="cancel_button" mnemonicParsing="false" onMouseClicked="#cancelDelete" text="取消">
                <font>
                   <Font size="14.0" />
                </font></Button>

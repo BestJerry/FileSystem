@@ -98,8 +98,6 @@ public class CenterViewCtr implements Initializable {
     }
 
 
-
-
     /**
      * ´ò¿ªÓÒ¼ü²Ëµ¥
      * @param mouseEvent

@@ -126,18 +126,28 @@ public class SubContextMenuCtr implements Initializable{
 
     public void delete(ActionEvent actionEvent) throws IOException {
 
+        URL location = getClass().getResource("/resources/CheckDeleteView.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
 
-        try {
-            if(attribute.getFaNode().remove(attribute)){
-                flowPane.getChildren().remove(node);
-            }
+        Parent root = fxmlLoader.load(location.openStream());
+        CheckDeleteCtr checkDeleteCtr  = fxmlLoader.getController();
+        checkDeleteCtr.setFolder(folder);
+        checkDeleteCtr.setFlowPane(flowPane);
+        checkDeleteCtr.setAttribute(attribute);
+        checkDeleteCtr.setNode(node);
+        Stage stage = new Stage();
+        checkDeleteCtr.setStage(stage);
+        stage.setTitle("提示");
+        stage.setResizable(false);
+        Scene scene = new Scene(root, 480, 180);
+        stage.setScene(scene);
+        stage.setAlwaysOnTop(true);
+        //设置模态窗口
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
 
-        }
-        catch (NullPointerException e){
-           e.printStackTrace();
-        }
-
-        updateUI();
     }
 
     public void rename(ActionEvent actionEvent) throws IOException {
