@@ -4,11 +4,14 @@ import Model.TextFile;
 import com.sun.javafx.beans.IDProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import Model.Attribute;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +35,17 @@ public class FileAttributeCtr implements Initializable{
     @FXML
     private CheckBox hide_box;
 
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                attribute.setOpen_property(false);
+            }
+        });
+    }
 
     private Attribute attribute;
 

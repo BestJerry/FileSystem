@@ -101,6 +101,10 @@ public class SubContextMenuCtr implements Initializable{
 
     public void showAttribute(ActionEvent actionEvent) throws IOException {
 
+        if (attribute.isOpen_property()){
+            return;
+        }
+        attribute.setOpen_property(true);
         Stage stage = new Stage();
 
         URL location = getClass().getResource("/resources/FileAttributeView.fxml");
@@ -111,7 +115,7 @@ public class SubContextMenuCtr implements Initializable{
         FileAttributeCtr fileAttributeCtr = fxmlLoader.getController();
         fileAttributeCtr.setAttribute(attribute);
         fileAttributeCtr.init();
-
+        fileAttributeCtr.setStage(stage);
         stage.setTitle(" Ù–‘");
         stage.setResizable(false);
         Scene scene = new Scene(root, 420, 420);

@@ -87,12 +87,21 @@ public abstract class Attribute {
     protected int startDisk = -1;
     protected boolean hide = false;// 是否隐藏
     protected int disklen = 1;// 所占磁盘长度
-
+    private  boolean open_property=false;
     protected static final int sz = 64;// 一个磁盘64B
 
     public static enum type {
         FOLDER, FILE;
     }
+
+    public boolean isOpen_property() {
+        return open_property;
+    }
+
+    public void setOpen_property(boolean open_property) {
+        this.open_property = open_property;
+    }
+
     public  Folder getFaNode(){
         return (Folder) faNode;
     }
