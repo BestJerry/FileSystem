@@ -1,6 +1,9 @@
 package Model;
 
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+
 public abstract class Attribute {
     /**
      * 文件路径
@@ -13,6 +16,7 @@ public abstract class Attribute {
     public boolean setName(String name) {
         if(!is_correctName(name)) return false;
         this.name = name;
+        this.path = this.faNode.getPath() + File.separator + this.name;
         return true;
     }
     /**
@@ -38,7 +42,7 @@ public abstract class Attribute {
     /**
      * @return true则隐藏
      */
-    public boolean isHide() {
+    public boolean getHide() {
         return hide;
     }
 
@@ -94,15 +98,18 @@ public abstract class Attribute {
     }
 
     public static boolean is_correctName(String name) {
-        if (name == null || name.length() > 5 || name.length() == 0)
-            return false;
+        try {
+            if (name == null || name.getBytes("gbk").length > 5 || name.length() == 0)
+                return false;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         boolean flag = false;
         for (int i = 0; i < name.length(); i++) {
             char c = name.charAt(i);
             if (c == '$' || c == '/' || c == '.')
                 return false;
-            if(c < 0 || c > 255) return  false;
             if(c !=' ')
                 flag = true;
         }

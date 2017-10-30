@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 public class TextFile extends Attribute {
     private String content = "";
@@ -10,6 +11,7 @@ public class TextFile extends Attribute {
 
     public void setIs_open(boolean is_open) {
         this.is_open = is_open;
+        setOpenOrClose(is_open);
     }
 
     protected TextFile(String path) {
@@ -30,24 +32,22 @@ public class TextFile extends Attribute {
      * @param content
      *            文本内容
      */
-    protected boolean setContent(String content) {
+    protected boolean setContent(String content) throws UnsupportedEncodingException {
         if (content == null)
             content = "";
-        if(FAT.assignDisk(this.getStartDisk(), ((content.length() == 0 ? 1 : content.length()) + sz - 1) / sz - disklen) == false)
+
+        if(FAT.assignDisk(this.getStartDisk(), ((content.length() == 0 ? 1 : content.getBytes("gbk").length) + sz - 1) / sz - disklen) == false)
             return false;
+
         this.content = content;
-        this.size = content.length() - this.size;// 每个文件默认有8Byte，修改时更新父文件大小
+        this.size = content.getBytes("gbk").length - this.size;// 修改时更新父文件大小
         this.updateSize();
-        this.size = content.length();
+        this.size = content.getBytes("gbk").length;//要改
         this.disklen = FAT.getFileDisk(this.getStartDisk()).size();
-        System.out.println(disklen+" "+size+" "+content+" "+this.name);
         this.setOpenOrClose(false);
         return  true;
     }
 
-    public void open() {
-        setOpenOrClose(true);
-    }
 
     /**
      * 只有打开文件后才能进行此操作。 如果要保存，则将内容content作为参数输入，否则为null
@@ -61,11 +61,13 @@ public class TextFile extends Attribute {
      *             未打开文件则抛出异常
      */
     public boolean close(boolean is_save, String content) throws Exception {
+
         if (is_open == false)
             throw new Exception("文件未打开，无法进行此操作");
         if (is_save) {
             return save(content);
         }
+
         return true;
     }
 

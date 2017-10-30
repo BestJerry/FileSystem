@@ -26,7 +26,7 @@ public class ReadAndWrite {
     }
 
     public static void save(){
-        Folder.print(root);
+
         try {
             rw.write_data(root);
         } catch (IOException e) {

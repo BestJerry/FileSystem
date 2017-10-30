@@ -88,9 +88,10 @@ public class SubContextMenuCtr implements Initializable{
             Stage stage = FXRobotHelper.getStages().get(0);
             BorderPane root = (BorderPane) stage.getScene().getRoot();
             root.setCenter(scrollPane);
+            updateTopMenuPath(attribute);
         } else {
-
-            showFileContent();
+            if(!((TextFile)attribute).is_open())
+                showFileContent();
         }
 
 
@@ -121,8 +122,10 @@ public class SubContextMenuCtr implements Initializable{
 
 
         try {
-            flowPane.getChildren().remove(node);
-            attribute.getFaNode().remove(attribute);
+            if(attribute.getFaNode().remove(attribute)){
+                flowPane.getChildren().remove(node);
+            }
+
         }
         catch (NullPointerException e){
            e.printStackTrace();
@@ -188,7 +191,6 @@ public class SubContextMenuCtr implements Initializable{
     }
 
     private void showFileContent() throws IOException {
-        ((TextFile)attribute).open();
         ((TextFile) attribute).setIs_open(true);
         Stage stage = new Stage();
 
@@ -200,6 +202,7 @@ public class SubContextMenuCtr implements Initializable{
         FileContentCtr fileContentCtr  = fxmlLoader.getController();
         fileContentCtr.setTextFile((TextFile) attribute);
         fileContentCtr.setStage(stage);
+        fileContentCtr.setAttribute(attribute);
         fileContentCtr.setContent_text();
         stage.setTitle(attribute.getName());
         stage.setResizable(false);
@@ -208,5 +211,18 @@ public class SubContextMenuCtr implements Initializable{
         stage.setAlwaysOnTop(true);
         stage.show();
 
+    }
+
+    public void updateTopMenuPath(Attribute attribute) throws IOException {
+        URL location = getClass().getResource("/resources/TopMenu.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        HBox topMenu = fxmlLoader.load(location.openStream());
+        TopMenuCtr topMenuCtr = fxmlLoader.getController();
+        topMenuCtr.setText(attribute.getPath());
+        Stage stage = FXRobotHelper.getStages().get(0);
+        BorderPane root = (BorderPane) stage.getScene().getRoot();
+        root.setTop(topMenu);
     }
 }

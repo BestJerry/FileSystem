@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Attribute;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FileContentCtr implements Initializable{
+public class FileContentCtr implements Initializable {
 
     @FXML
     private TextArea content_text;
@@ -26,18 +27,26 @@ public class FileContentCtr implements Initializable{
 
     private Stage stage = new Stage();
 
+    private Attribute attribute;
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
+
     public void setStage(Stage stage) {
         this.stage = stage;
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                //调用event.consume()来阻止事件进一步传递
-                event.consume();
-                if (textFile.isOnly_read()){
+                if (((TextFile) attribute).isOnly_read()) {
                     return;
                 }
-                else {
+                //调用event.consume()来阻止事件进一步传递
+                event.consume();
+                if (textFile.isOnly_read()) {
+                    return;
+                } else {
                     URL location = getClass().getResource("/resources/CheckSaveView.fxml");
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(location);
@@ -73,7 +82,7 @@ public class FileContentCtr implements Initializable{
         this.textFile = textFile;
     }
 
-    public void setContent_text(){
+    public void setContent_text() {
         content_text.setText(textFile.getContent());
     }
 

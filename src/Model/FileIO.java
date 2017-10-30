@@ -13,15 +13,19 @@ import java.util.Comparator;
 public class FileIO {
     private static final int size = Attribute.sz;
     private File disk_file;
+
     /**
      * 选定一个数据文件进行读写，file为null则自创一个文件读写
+     *
      * @param file 数据文件
      */
     public FileIO(File file) {
         changeDataFile(file);
     }
+
     /**
      * 更换数据文件读写，file为null则新创一个文件进行读写
+     *
      * @param file 数据文件
      */
     public void changeDataFile(File file) {
@@ -43,7 +47,7 @@ public class FileIO {
             if (f.getName().endsWith(".dat") && f.getName().startsWith("data_"))
                 files.add(f);
         }
-        if(files.size()==0){
+        if (files.size() == 0) {
             File f = new File("data_0.dat");
             try {
                 f.createNewFile();
@@ -73,8 +77,10 @@ public class FileIO {
         });
         return files;
     }
+
     /**
      * 往文件中写数据
+     *
      * @param head 根目录的对象
      * @throws IOException
      */
@@ -107,15 +113,17 @@ public class FileIO {
     private void writeNode(RandomAccessFile raf, Attribute node, int disk, int offset) throws IOException {
         raf.seek(disk * size + offset);
         byte[] b = new byte[8];
-        for (int i = 0; i < 5 && i < node.getName().length(); i++) {
-            b[i] = (byte) node.getName().charAt(i);
+        byte[] names = node.getName().getBytes("gbk");
+        for (int i = 0; i < 5 && i < names.length; i++) {
+            b[i] = names[i];
         }
-		/*// 标记是否是个目录项
+
+        /*// 标记是否是个目录项
 		for (int i = 3; i < 5; i++) {
 			b[i] = 1;
 		}*/
 
-        b[5] = (byte) (0 | ((node instanceof Folder) ? 0 : 4) | (node.isHide() ? 2 : 0));
+        b[5] = (byte) (0 | ((node instanceof Folder) ? 0 : 4) | (node.getHide() ? 2 : 0));
         // 00000100b --is file,00000010b is hide,00000001 is onlyread
         if ((b[5] & 4) == 4) {
             b[5] = (byte) (b[5] | (((TextFile) node).isOnly_read() ? 1 : 0));
@@ -140,40 +148,42 @@ public class FileIO {
     private void writeContent(RandomAccessFile raf, TextFile file, int disk) throws IOException {
 
         raf.seek(disk * size);
-        byte[] b = file.getContent().getBytes();
+        byte[] b = file.getContent().getBytes("gbk");
         int next = disk, start = 0;
 
         while (b.length > start) {
             raf.write(b, start, size > b.length - start ? b.length - start : size);
             next = FAT.FAT[next];
-
             raf.seek(next * size);
             start += size;
         }
     }
+
     /**
      * 从文件中读取数据
+     *
      * @return 数据的根目录
      * @throws Exception 可能文件为空或者文件被修改过，文件为空则不进行读取
      */
     public Folder read_data() throws Exception {
         FAT.initialFAT();
-        Folder head = new Folder(System.getProperty("user.dir"));
+        String rootPath = System.getProperty("user.dir");
+        rootPath = rootPath.substring(rootPath.lastIndexOf(File.separator)+1);
+        Folder head = new Folder(rootPath);
         head.startDisk = FAT.assignDisk();
-       try
-           (RandomAccessFile raf = new RandomAccessFile(disk_file, "r")){
-           try {
-               head = read(raf, head);
-           } catch (Exception e) {
-               head = new Folder(System.getProperty("user.dir"));
-               FAT.initialFAT();
-               head.startDisk = FAT.assignDisk();
-               clear();// 可能数据有毒=_=
-              // throw new Exception("data error or file is empty!");
-           }
-           raf.close();
+        try
+                (RandomAccessFile raf = new RandomAccessFile(disk_file, "r")) {
+            try {
+                head = read(raf, head);
+            } catch (Exception e) {
+                head = new Folder(rootPath);
+                FAT.initialFAT();
+                head.startDisk = FAT.assignDisk();
+                clear();// 可能数据有毒=_=
+                // throw new Exception("data error or file is empty!");
+            }
+            raf.close();
         }
-
 
 
         return head;
@@ -209,15 +219,21 @@ public class FileIO {
         }
         //if (b[3] == 0)
         //return null;
-        String name;
-        char[] c = new char[5];
+        //String name;
+        //char[] c = new char[5];
         int i = 0;
         for (i = 0; i < 5; i++) {
             if (b[i] == 0)
                 break;
-            c[i] = (char) b[i];
+            //c[i] = (char) b[i];
         }
-        name = String.copyValueOf(c, 0, i);
+        byte[] nameByte = new byte[i];
+
+        for(int j=0;j<i;j++){
+            nameByte[j] = b[j];
+        }
+        String name = new String(nameByte,"gbk");
+        //name = String.copyValueOf(c, 0, i);
         if (Attribute.is_correctName(name) == false)
             return null;
         boolean is_Hide, is_File, is_Only_read;
@@ -253,17 +269,23 @@ public class FileIO {
     }
 
     private void readContent(RandomAccessFile raf, TextFile file) throws IOException {
-        String content = "";
+        byte[] b = new byte[128 * 64];
+        int start = 0;
         for (int disk : FAT.getFileDisk(file.startDisk)) {
             raf.seek(disk * size);
-            for (int i = 0; i < size; i++) {
-                int c = raf.read();
-                // System.out.println(raf.readByte());
-                if (c == 0 || c == -1)// c == -1 -> EOF
-                    break;
-                content += (char) c;
+            raf.read(b, start, 64);//由于随机读取没有文件结束，所以读了很多0
+            start += 64;
+        }
+        int i;
+        for(i=0;i<b.length;i++){
+            if(b[i] == 0){
+                break;
             }
         }
+        byte[] bytes = new byte[i];
+        for(int j=0;j<i;j++)
+            bytes[j] = b[j];//筛掉这些0..
+        String content = new String(bytes, "gbk");
         file.setContent(content);
     }
 
@@ -335,8 +357,10 @@ public class FileIO {
         name = name.substring(0, numend + 1) + currentNum + ".dat";
         return name;
     }
+
     /**
      * 清空被读写文件的内容
+     *
      * @throws IOException
      */
     private void clear() throws IOException {

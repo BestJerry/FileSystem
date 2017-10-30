@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FileAttributeCtr">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="150.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="270.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="103.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="317.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -17,13 +20,31 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="文件名称：" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="名称：" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <Label fx:id="filename_label" alignment="CENTER" contentDisplay="CENTER" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-      <Label alignment="CENTER" contentDisplay="CENTER" text="位置：" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="位置：" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <Label fx:id="position_label" alignment="CENTER" contentDisplay="CENTER" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <Label alignment="CENTER" contentDisplay="CENTER" text="大小：" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="大小：" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <Label fx:id="size_label" alignment="CENTER" contentDisplay="CENTER" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Label alignment="CENTER" contentDisplay="CENTER" text="属性：" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      <Label fx:id="attribute_label" alignment="CENTER" contentDisplay="CENTER" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="属性：" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <!--<Label fx:id="attribute_label" alignment="CENTER" contentDisplay="CENTER" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER" />-->
+       <HBox alignment="CENTER_LEFT" spacing="16.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <children>
+            <CheckBox fx:id="only_read_box" mnemonicParsing="false" text="只读" />
+            <CheckBox fx:id="read_write_box" mnemonicParsing="false" text="读写" />
+            <CheckBox fx:id="hide_box" mnemonicParsing="false" text="隐藏" />
+         </children></HBox>
    </children>
 </GridPane>

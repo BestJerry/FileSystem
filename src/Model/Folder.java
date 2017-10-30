@@ -135,7 +135,7 @@ public class Folder extends Attribute {
         return type.FOLDER;
     }
 
-    public static void print(Attribute head) {
+    /*public static void print(Attribute head) {
         System.out.println("\nNAME: " + head.getName());
         System.out.println("PATH: " + head.getPath());
         System.out.println("SIZE: " + head.getSize2());
@@ -143,7 +143,7 @@ public class Folder extends Attribute {
         for (int disk : FAT.getFileDisk(head.getStartDisk()))
             System.out.print(" " + disk);
         System.out.println("\nTYPE: " + head.get_type());
-        System.out.println("HIDE: " + head.isHide());
+        System.out.println("HIDE: " + head.getHide());
         if (head instanceof Folder) {
             Folder folder = (Folder) head;
             System.out.print("SON:");
@@ -159,7 +159,7 @@ public class Folder extends Attribute {
             System.out.println("CONTENT: " + tf.getContent());
 
         }
-    }
+    }*/
 }
 
 

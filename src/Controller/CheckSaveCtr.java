@@ -41,8 +41,8 @@ public class CheckSaveCtr implements Initializable {
 
     public void commitSave(MouseEvent mouseEvent) throws Exception {
         try {
-            textFile.setIs_open(true);
             textFile.close(true,content);
+            textFile.setIs_open(false);
             stage.close();
             primary_stage.close();
             updateUI();
@@ -53,8 +53,9 @@ public class CheckSaveCtr implements Initializable {
     }
 
     public void cancelSave(MouseEvent mouseEvent) throws Exception {
-        textFile.setIs_open(true);
+
         textFile.close(false,content);
+        textFile.setIs_open(false);
         stage.close();
         primary_stage.close();
     }

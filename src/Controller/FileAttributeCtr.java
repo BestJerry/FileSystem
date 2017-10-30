@@ -1,7 +1,12 @@
 package Controller;
 
+import Model.TextFile;
+import com.sun.javafx.beans.IDProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import Model.Attribute;
 
@@ -19,7 +24,14 @@ public class FileAttributeCtr implements Initializable{
     private Label position_label;
 
     @FXML
-    private Label attribute_label;
+    private CheckBox only_read_box;
+
+    @FXML
+    private CheckBox read_write_box;
+
+    @FXML
+    private CheckBox hide_box;
+
 
     private Attribute attribute;
 
@@ -35,19 +47,72 @@ public class FileAttributeCtr implements Initializable{
     private void setPosition_label(){
         position_label.setText(attribute.getPath());
     }
-    private void setAttribute_label(){
-        attribute_label.setText(String.valueOf(attribute.get_type()));
-    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        only_read_box.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue){
+                    read_write_box.setSelected(false);
+                    ((TextFile)attribute).setOnly_read(true);
+                }else if(oldValue){
+                    read_write_box.setSelected(true);
+                    ((TextFile)attribute).setOnly_read(false);
+                }
+            }
+        });
+
+        read_write_box.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue){
+                    only_read_box.setSelected(false);
+                    ((TextFile)attribute).setOnly_read(false);
+                }else if(oldValue){
+                    only_read_box.setSelected(true);
+                    ((TextFile)attribute).setOnly_read(true);
+                }
+            }
+        });
+
+        hide_box.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue){
+                   attribute.setHide(true);
+                }else if(oldValue){
+                   attribute.setHide(false);
+                }
+            }
+        });
 
     }
 
     public void init(){
-      setAttribute_label();
       setFilename_label();
       setPosition_label();
       setSize_label();
+      if (attribute.getHide()){
+          hide_box.setSelected(true);
+      }else{
+          hide_box.setSelected(false);
+      }
+
+      if (attribute instanceof TextFile){
+          if (((TextFile) attribute).isOnly_read()){
+              only_read_box.setSelected(true);
+              read_write_box.setSelected(false);
+          }else{
+              only_read_box.setSelected(false);
+              read_write_box.setSelected(true);
+          }
+      }else{
+          only_read_box.setDisable(true);
+          read_write_box.setDisable(true);
+          only_read_box.setSelected(false);
+          read_write_box.setSelected(true);
+      }
     }
 }

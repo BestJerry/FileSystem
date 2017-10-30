@@ -14,7 +14,7 @@
                 <Font size="16.0" />
             </font>
         </Label>
-      <TextField fx:id="text" focusTraversable="false" prefWidth="520.0">
+      <TextField fx:id="text" editable="false" focusTraversable="false" prefWidth="520.0">
          <font>
             <Font size="14.0" />
          </font>

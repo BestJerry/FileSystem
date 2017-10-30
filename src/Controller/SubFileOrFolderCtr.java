@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Model.Attribute;
@@ -86,7 +87,7 @@ public class SubFileOrFolderCtr implements Initializable {
 
     }
 
-    public void showMenu(MouseEvent mouseEvent) throws IOException {
+    public void showMenuOrOpenFile(MouseEvent mouseEvent) throws IOException {
 
         if (contextMenu != null && contextMenu.isShowing()) {
             contextMenu.hide();
@@ -104,6 +105,7 @@ public class SubFileOrFolderCtr implements Initializable {
                 Stage stage = FXRobotHelper.getStages().get(0);
                 BorderPane root = (BorderPane) stage.getScene().getRoot();
                 root.setCenter(scrollPane);
+                updateTopMenuPath(attribute);
             } else {
                 if(!((TextFile)attribute).is_open()){
                     showFileContent();
@@ -148,7 +150,7 @@ public class SubFileOrFolderCtr implements Initializable {
     }
 
     private void showFileContent() throws IOException {
-        ((TextFile) attribute).open();
+        ((TextFile) attribute).setIs_open(true);
         Stage stage = new Stage();
         URL location = getClass().getResource("/resources/FileContentView.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -158,6 +160,7 @@ public class SubFileOrFolderCtr implements Initializable {
         FileContentCtr fileContentCtr = fxmlLoader.getController();
         fileContentCtr.setTextFile((TextFile) attribute);
         fileContentCtr.setStage(stage);
+        fileContentCtr.setAttribute(attribute);
         fileContentCtr.setContent_text();
         stage.setTitle(attribute.getName());
         stage.setResizable(false);
@@ -166,5 +169,18 @@ public class SubFileOrFolderCtr implements Initializable {
         stage.setAlwaysOnTop(true);
         stage.show();
 
+    }
+
+    public void updateTopMenuPath(Attribute attribute) throws IOException {
+        URL location = getClass().getResource("/resources/TopMenu.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+        HBox topMenu = fxmlLoader.load(location.openStream());
+        TopMenuCtr topMenuCtr = fxmlLoader.getController();
+        topMenuCtr.setText(attribute.getPath());
+        Stage stage = FXRobotHelper.getStages().get(0);
+        BorderPane root = (BorderPane) stage.getScene().getRoot();
+        root.setTop(topMenu);
     }
 }
