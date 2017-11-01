@@ -76,6 +76,11 @@ public class CheckCreateCtr implements Initializable {
 
     }
 
+    /**
+     * 确定新建
+     * @param mouseEvent
+     * @throws IOException
+     */
     public void commitCreate(MouseEvent mouseEvent) throws IOException {
         newFileName = new_name_text.getText();
         folder.add(newFileName, isfolder, new addCallback() {
@@ -122,6 +127,10 @@ public class CheckCreateCtr implements Initializable {
         }
     }
 
+    /**
+     * 更新主界面
+     * @throws IOException
+     */
     public void updateUI() throws IOException {
        // HBox topMenu = FXMLLoader.load(getClass().getResource("/resources.View/TopMenu.fxml"));
         URL location = getClass().getResource("/resources/TopMenu.fxml");

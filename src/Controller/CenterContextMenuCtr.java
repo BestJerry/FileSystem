@@ -48,6 +48,12 @@ public class CenterContextMenuCtr implements Initializable {
     }
 
 
+    /**
+     * 新建文件夹
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void createFolder(ActionEvent actionEvent) throws IOException {
 
         URL location = getClass().getResource("/resources/CheckCreateView.fxml");
@@ -74,6 +80,12 @@ public class CenterContextMenuCtr implements Initializable {
         stage.show();
     }
 
+    /**
+     * 新建文件
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void createFile(ActionEvent actionEvent) throws IOException {
 
         URL location = getClass().getResource("/resources/CheckCreateView.fxml");

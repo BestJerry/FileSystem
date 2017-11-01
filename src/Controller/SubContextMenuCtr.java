@@ -74,7 +74,11 @@ public class SubContextMenuCtr implements Initializable{
 
     }
 
-
+    /**
+     * 打开文件或文件夹
+     * @param actionEvent
+     * @throws IOException
+     */
     public void open(ActionEvent actionEvent) throws IOException {
         if (attribute instanceof Folder) {
             URL location = getClass().getResource("/resources/CenterView.fxml");

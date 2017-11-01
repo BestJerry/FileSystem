@@ -56,6 +56,11 @@ public class CenterViewCtr implements Initializable {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 添加文件和文件夹节点
+     * @throws IOException
+     */
     private void addNode() throws IOException {
         if (folder == null) {
             return;
