@@ -1,5 +1,6 @@
 package Controller;
 
+import Utility.updateUI;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -66,10 +67,11 @@ public class CheckSaveCtr implements Initializable {
     }
 
     public void updateUI() throws IOException {
-        Node  rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
+
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
 
-        root.setRight(rightView);
+        updateUI.updateRightView(root,getClass());
+
     }
 }

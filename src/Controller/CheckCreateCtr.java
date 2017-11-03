@@ -1,6 +1,7 @@
 package Controller;
 
 import Interface.addCallback;
+import Utility.updateUI;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -132,44 +133,17 @@ public class CheckCreateCtr implements Initializable {
      * @throws IOException
      */
     public void updateUI() throws IOException {
-       // HBox topMenu = FXMLLoader.load(getClass().getResource("/resources.View/TopMenu.fxml"));
-        URL location = getClass().getResource("/resources/TopMenu.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(location);
-        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        HBox topMenu = fxmlLoader.load(location.openStream());
-        TopMenuCtr topMenuCtr = fxmlLoader.getController();
-        topMenuCtr.setText(folder.getPath());
-
-
-        //VBox leftView = FXMLLoader.load(getClass().getResource("/resources.View/LeftView.fxml"));
-        URL location_two = getClass().getResource("/resources/LeftView.fxml");
-        FXMLLoader fxmlLoader_two = new FXMLLoader();
-        fxmlLoader_two.setLocation(location_two);
-        fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
-        TreeView  leftView  = fxmlLoader_two.load(location_two.openStream());
-        LeftViewCtr leftViewCtr  = fxmlLoader_two.getController();
-        leftViewCtr.setFolder(folder);
-        leftViewCtr.init();
-
-
-        TableView rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topMenu);
-        root.setLeft(leftView);
-        root.setRight(rightView);
 
-        URL location_three = getClass().getResource("/resources/CenterView.fxml");
-        FXMLLoader fxmlLoader_three = new FXMLLoader();
-        fxmlLoader_three.setLocation(location_three);
-        fxmlLoader_three.setBuilderFactory(new JavaFXBuilderFactory());
-        ScrollPane scrollPane  = fxmlLoader_three.load(location_three.openStream());
-        CenterViewCtr centerViewCtr = fxmlLoader_three.getController();
-        centerViewCtr.setFolder(folder);
-        centerViewCtr.init();
+        updateUI.updateTopMenu(root,folder,getClass());
 
-        root.setCenter(scrollPane);
+        updateUI.updateLeftView(root,folder,getClass());
+
+        updateUI.updateRightView(root,getClass());
+
+        updateUI.updateCenterView(root,folder,getClass());
+
         this.stage.close();
 
     }

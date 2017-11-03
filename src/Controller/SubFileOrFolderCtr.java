@@ -1,5 +1,6 @@
 package Controller;
 
+import Utility.updateUI;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,18 +95,12 @@ public class SubFileOrFolderCtr implements Initializable {
 
         } else if (mouseEvent.getClickCount() >= 2) {
             if (attribute instanceof Folder) {
-                URL location = getClass().getResource("/resources/CenterView.fxml");
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(location);
-                fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-                ScrollPane scrollPane = fxmlLoader.load(location.openStream());
-                CenterViewCtr centerViewCtr = fxmlLoader.getController();
-                centerViewCtr.setFolder((Folder) attribute);
-                centerViewCtr.init();
                 Stage stage = FXRobotHelper.getStages().get(0);
                 BorderPane root = (BorderPane) stage.getScene().getRoot();
-                root.setCenter(scrollPane);
-                updateTopMenuPath(attribute);
+
+                updateUI.updateTopMenu(root, (Folder) attribute,getClass());
+
+                updateUI.updateCenterView(root, (Folder) attribute,getClass());
             } else {
                 if(!((TextFile)attribute).is_open()){
                     showFileContent();
@@ -174,16 +169,4 @@ public class SubFileOrFolderCtr implements Initializable {
 
     }
 
-    public void updateTopMenuPath(Attribute attribute) throws IOException {
-        URL location = getClass().getResource("/resources/TopMenu.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(location);
-        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        HBox topMenu = fxmlLoader.load(location.openStream());
-        TopMenuCtr topMenuCtr = fxmlLoader.getController();
-        topMenuCtr.setText(attribute.getPath());
-        Stage stage = FXRobotHelper.getStages().get(0);
-        BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topMenu);
-    }
 }

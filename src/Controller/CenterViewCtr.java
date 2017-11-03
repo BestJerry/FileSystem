@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 
+import Model.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
@@ -68,7 +69,7 @@ public class CenterViewCtr implements Initializable {
         files = folder.listFolder();
 
         for (Attribute son : files) {
-            if (son instanceof Folder) {
+            if (son instanceof Folder && (Main.isShow_hide()||!son.getHide())) {
                 URL location = getClass().getResource("/resources/SubFileOrFolderView.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(location);
@@ -82,7 +83,7 @@ public class CenterViewCtr implements Initializable {
                 subFileOrFolderCtr.setFlowPane(flowpane);
                 subFileOrFolderCtr.setNode(node);
                 flowpane.getChildren().add(node);
-            } else {
+            } else if ((Main.isShow_hide()||!son.getHide())){
                 URL location = getClass().getResource("/resources/SubFileOrFolderView.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(location);

@@ -1,21 +1,19 @@
 
 package Controller;
 
+import Model.Main;
 import Utility.ReadAndWrite;
+import Utility.updateUI;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import Model.Attribute;
 import Model.Folder;
@@ -72,7 +70,7 @@ public class LeftViewCtr implements Initializable{
 
                 try {
                     if (selectItem.getValue() instanceof Folder) {
-                        updateCenterView((Folder) selectItem.getValue());
+                        updateUI((Folder) selectItem.getValue());
                     }
                 } catch (Exception ex) {
 
@@ -88,40 +86,26 @@ public class LeftViewCtr implements Initializable{
      */
     public void traverseFolder(TreeItem rootItem, Folder root) {
             for (Attribute son : root.listFolder()) {
-                if (son instanceof Folder) {
+                if (son instanceof Folder && (Main.isShow_hide()||!son.getHide())) {
                     TreeItem<Attribute> folderItem = new TreeItem<>(son,new ImageView(folderIcon));
                     folderItem.setExpanded(true);
                     rootItem.getChildren().add(folderItem);
                     traverseFolder(folderItem, (Folder) son);
-                } else {
+                } else if ((Main.isShow_hide()||!son.getHide())){
                     TreeItem<Attribute> fileItem = new TreeItem<>(son,new ImageView(fileIcon));
                     rootItem.getChildren().add(fileItem);
                 }
             }
     }
 
-    private void updateCenterView(Folder folder) throws IOException {
+    private void updateUI(Folder folder) throws IOException {
 
-        URL location = getClass().getResource("/resources/TopMenu.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(location);
-        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        HBox topMenu = fxmlLoader.load(location.openStream());
-        TopMenuCtr topMenuCtr = fxmlLoader.getController();
-        topMenuCtr.setText(folder.getPath());
-
-        URL location_two = getClass().getResource("/resources/CenterView.fxml");
-        FXMLLoader fxmlLoader_two = new FXMLLoader();
-        fxmlLoader_two.setLocation(location_two);
-        fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
-        ScrollPane scrollPane  = fxmlLoader_two.load(location_two.openStream());
-        CenterViewCtr centerViewCtr = fxmlLoader_two.getController();
-        centerViewCtr.setFolder(folder);
-        centerViewCtr.init();
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topMenu);
-        root.setCenter(scrollPane);
+
+        updateUI.updateTopMenu(root,folder,getClass());
+
+        updateUI.updateCenterView(root,folder,getClass());
     }
 
 }

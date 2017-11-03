@@ -23,14 +23,14 @@
             <Insets top="10.0" />
          </VBox.margin>
          <children>
-              <Button fx:id="commit_button" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#commitDelete" text="确定">
+              <Button fx:id="commit_button" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#commitDelete" style="-fx-background-color: #59dd29;" text="确定">
                   <font>
-                      <Font size="14.0" />
+                      <Font name="System Bold" size="14.0" />
                   </font>
             </Button>
-            <Button fx:id="cancel_button" mnemonicParsing="false" onMouseClicked="#cancelDelete" text="取消">
+            <Button fx:id="cancel_button" mnemonicParsing="false" onMouseClicked="#cancelDelete" style="-fx-background-color: #fb0606;" text="取消">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font></Button>
          </children>
       </HBox>

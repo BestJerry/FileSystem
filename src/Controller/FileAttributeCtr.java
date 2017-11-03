@@ -83,10 +83,15 @@ public class FileAttributeCtr implements Initializable{
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue){
                     only_read_box.setSelected(false);
-                    ((TextFile)attribute).setOnly_read(false);
+                    if (attribute instanceof TextFile){
+                        ((TextFile)attribute).setOnly_read(false);
+                    }
+
                 }else if(oldValue){
                     only_read_box.setSelected(true);
-                    ((TextFile)attribute).setOnly_read(true);
+                    if (attribute instanceof TextFile){
+                        ((TextFile)attribute).setOnly_read(false);
+                    }
                 }
             }
         });

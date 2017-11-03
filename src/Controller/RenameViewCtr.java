@@ -1,5 +1,6 @@
 package Controller;
 
+import Utility.updateUI;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,7 +107,7 @@ public class RenameViewCtr implements Initializable {
             return;
         } else {
             attribute.setName(newFileName);
-            //rename_label.setText(newFileName);
+            //rename_label.setPath(newFileName);
             stage.close();
             tips_label.setVisible(false);
             updateUI();
@@ -115,39 +116,15 @@ public class RenameViewCtr implements Initializable {
 
     public void updateUI() throws IOException {
 
-        URL location = getClass().getResource("/resources/TopMenu.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(location);
-        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        HBox topMenu = fxmlLoader.load(location.openStream());
-        TopMenuCtr topMenuCtr = fxmlLoader.getController();
-        topMenuCtr.setText(folder.getPath());
-
-        URL location_three = getClass().getResource("/resources/CenterView.fxml");
-        FXMLLoader fxmlLoader_three = new FXMLLoader();
-        fxmlLoader_three.setLocation(location_three);
-        fxmlLoader_three.setBuilderFactory(new JavaFXBuilderFactory());
-        ScrollPane centerView = fxmlLoader_three.load(location_three.openStream());
-        CenterViewCtr centerViewCtr = fxmlLoader_three.getController();
-        centerViewCtr.setFolder(folder);
-        centerViewCtr.init();
-
-        URL location_two = getClass().getResource("/resources/LeftView.fxml");
-        FXMLLoader fxmlLoader_two = new FXMLLoader();
-        fxmlLoader_two.setLocation(location_two);
-        fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
-        TreeView leftView = fxmlLoader_two.load(location_two.openStream());
-        LeftViewCtr leftViewCtr = fxmlLoader_two.getController();
-        leftViewCtr.setFolder(folder);
-        leftViewCtr.init();
-
-        TableView rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
-
         Stage stage = FXRobotHelper.getStages().get(0);
         BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topMenu);
-        root.setLeft(leftView);
-        root.setRight(rightView);
-        root.setCenter(centerView);
+
+        updateUI.updateTopMenu(root,folder,getClass());
+
+        updateUI.updateLeftView(root,folder,getClass());
+
+        updateUI.updateRightView(root,getClass());
+
+        updateUI.updateCenterView(root,folder,getClass());
     }
 }

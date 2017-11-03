@@ -1,5 +1,6 @@
 package Controller;
 
+import Utility.updateUI;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -81,18 +82,13 @@ public class SubContextMenuCtr implements Initializable{
      */
     public void open(ActionEvent actionEvent) throws IOException {
         if (attribute instanceof Folder) {
-            URL location = getClass().getResource("/resources/CenterView.fxml");
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(location);
-            fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-            ScrollPane scrollPane  = fxmlLoader.load(location.openStream());
-            CenterViewCtr centerViewCtr = fxmlLoader.getController();
-            centerViewCtr.setFolder((Folder) attribute);
-            centerViewCtr.init();
+
             Stage stage = FXRobotHelper.getStages().get(0);
             BorderPane root = (BorderPane) stage.getScene().getRoot();
-            root.setCenter(scrollPane);
-            updateTopMenuPath(attribute);
+
+            updateUI.updateTopMenu(root, (Folder) attribute,getClass());
+
+            updateUI.updateCenterView(root, (Folder) attribute,getClass());
         } else {
             if(!((TextFile)attribute).is_open()){
                 showFileContent();
@@ -184,31 +180,7 @@ public class SubContextMenuCtr implements Initializable{
 
     }
 
-    public void updateUI() throws IOException {
-        URL location = getClass().getResource("/resources/TopMenu.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(location);
-        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        HBox topMenu = fxmlLoader.load(location.openStream());
-        TopMenuCtr topMenuCtr = fxmlLoader.getController();
-        topMenuCtr.setText(folder.getPath());
 
-        URL location_two = getClass().getResource("/resources/LeftView.fxml");
-        FXMLLoader fxmlLoader_two = new FXMLLoader();
-        fxmlLoader_two.setLocation(location_two);
-        fxmlLoader_two.setBuilderFactory(new JavaFXBuilderFactory());
-        TreeView leftView  = fxmlLoader_two.load(location_two.openStream());
-        LeftViewCtr leftViewCtr  = fxmlLoader_two.getController();
-        leftViewCtr.setFolder(folder);
-        leftViewCtr.init();
-
-        TableView rightView = FXMLLoader.load(getClass().getResource("/resources/RightView.fxml"));
-        Stage stage = FXRobotHelper.getStages().get(0);
-        BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topMenu);
-        root.setLeft(leftView);
-        root.setRight(rightView);
-    }
 
     private void showFileContent() throws IOException {
         ((TextFile) attribute).setIs_open(true);
@@ -236,16 +208,4 @@ public class SubContextMenuCtr implements Initializable{
 
     }
 
-    public void updateTopMenuPath(Attribute attribute) throws IOException {
-        URL location = getClass().getResource("/resources/TopMenu.fxml");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(location);
-        fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-        HBox topMenu = fxmlLoader.load(location.openStream());
-        TopMenuCtr topMenuCtr = fxmlLoader.getController();
-        topMenuCtr.setText(attribute.getPath());
-        Stage stage = FXRobotHelper.getStages().get(0);
-        BorderPane root = (BorderPane) stage.getScene().getRoot();
-        root.setTop(topMenu);
-    }
 }

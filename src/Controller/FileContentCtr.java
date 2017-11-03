@@ -29,6 +29,10 @@ public class FileContentCtr implements Initializable {
 
     private Attribute attribute;
 
+    private String old_content;
+
+    private String new_content;
+
     public void setUnEditable(){
         content_text.setEditable(false);
     }
@@ -46,11 +50,13 @@ public class FileContentCtr implements Initializable {
                     ((TextFile) attribute).setIs_open(false);
                     return;
                 }
+                new_content = content_text.getText();
+                if (old_content.equals(new_content)){
+                    ((TextFile) attribute).setIs_open(false);
+                    return;
+                }
                 //调用event.consume()来阻止事件进一步传递
                 event.consume();
-                if (textFile.isOnly_read()) {
-                    return;
-                } else {
                     URL location = getClass().getResource("/resources/CheckSaveView.fxml");
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(location);
@@ -76,7 +82,6 @@ public class FileContentCtr implements Initializable {
                     //设置模态窗口
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
-                }
 
             }
         });
@@ -87,6 +92,7 @@ public class FileContentCtr implements Initializable {
     }
 
     public void setContent_text() {
+        old_content = textFile.getContent();
         content_text.setText(textFile.getContent());
     }
 
