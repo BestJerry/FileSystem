@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" spacing="48.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HelpViewCtr">
+   <children>
+      <Label text="1.用户可在中间面板的空白处，通过点击右键的弹出菜单，实现新建文件及文件夹" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="24.0" right="24.0" />
+         </VBox.margin></Label>
+      <Label text="2.新建的文件名和文件夹名不可超过5个英文字母或2个中文" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="24.0" right="24.0" />
+         </VBox.margin></Label>
+      <Label text="3.用户可通过双击文件图标打开文件，双击文件夹图标进入文件夹" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="24.0" right="24.0" />
+         </VBox.margin></Label>
+      <Label text="4.对文件和文件夹图标，点击右键弹出菜单可执行查看属性，删除文件，重命名文件等操作" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="24.0" right="24.0" />
+         </VBox.margin></Label>
+   </children>
+</VBox>
